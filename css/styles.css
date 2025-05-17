@@ -1,0 +1,591 @@
+:root {
+    --primary-color: #e8b4b8; /* Light rose */
+    --primary-dark: #d4919a; /* Darker rose */
+    --primary-light: #f5d6d9; /* Very light rose */
+    --accent-color: #f2c1c7; /* Medium rose */
+    --text-color: #4a3b3c; /* Dark rose-brown */
+    --text-light: #8a7275; /* Light rose-brown */
+    --white: #ffffff;
+    --off-white: #faf6f7;
+    --gray-light: #f0e6e8;
+    --gray: #d9d0d2;
+    --shadow: rgba(212, 145, 154, 0.2);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-color);
+    background-color: var(--off-white);
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-dark);
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--primary-color);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: var(--primary-dark);
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: var(--primary-color);
+}
+
+/* Buttons */
+.btn-primary, .btn-secondary {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-weight: 500;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    font-size: 1rem;
+}
+
+.btn-primary {
+    background-color: var(--primary-dark);
+    color: var(--white);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-color);
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px var(--shadow);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--primary-dark);
+    border: 2px solid var(--primary-dark);
+}
+
+.btn-secondary:hover {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px var(--shadow);
+}
+
+/* Header */
+header {
+    background-color: rgba(255, 255, 255, 0.95);
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px 0;
+    transition: all 0.3s ease;
+}
+
+header.scrolled {
+    padding: 10px 0;
+    background-color: rgba(255, 255, 255, 0.98);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    color: var(--primary-dark);
+    margin: 0;
+}
+
+.wedding-date {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--text-light);
+    font-size: 1rem;
+    margin-left: 20px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li {
+    margin-left: 30px;
+}
+
+nav ul li a {
+    color: var(--text-color);
+    font-weight: 500;
+    position: relative;
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+nav ul li a:hover::after {
+    width: 100%;
+}
+
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    background-image: url('../images/hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--white);
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.hero h2 {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+
+.countdown {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.countdown-item {
+    margin: 0 15px;
+    min-width: 80px;
+}
+
+.countdown-item span {
+    display: block;
+}
+
+.countdown-item span:first-child {
+    font-size: 2.5rem;
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+}
+
+.countdown-label {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Our Story Section */
+.our-story {
+    padding: 100px 0;
+    background-color: var(--white);
+}
+
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    background-color: var(--primary-light);
+    transform: translateX(-50%);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 60px;
+}
+
+.timeline-item::after {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    transform: translateX(-50%);
+}
+
+.timeline-content {
+    position: relative;
+    width: calc(50% - 40px);
+    padding: 20px;
+    background-color: var(--gray-light);
+    border-radius: 8px;
+    box-shadow: 0 5px 15px var(--shadow);
+}
+
+.timeline-item:nth-child(odd) .timeline-content {
+    margin-left: auto;
+}
+
+.timeline-item:nth-child(even) .timeline-content {
+    margin-right: auto;
+}
+
+.timeline-content h3 {
+    margin-bottom: 10px;
+    color: var(--primary-dark);
+}
+
+.timeline-content .date {
+    font-style: italic;
+    color: var(--text-light);
+    margin-bottom: 15px;
+}
+
+/* Venue Section */
+.venue {
+    padding: 100px 0;
+    background-color: var(--gray-light);
+}
+
+.venue-details {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.venue-info, .venue-image {
+    flex: 1;
+}
+
+.venue-info h3 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: var(--primary-dark);
+}
+
+.venue-info p {
+    margin-bottom: 15px;
+}
+
+.venue-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px var(--shadow);
+}
+
+/* Gifts Section */
+.gifts {
+    padding: 100px 0;
+    background-color: var(--white);
+}
+
+.gifts-intro {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 50px;
+}
+
+.gift-options {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.gift-option {
+    flex: 1;
+    min-width: 300px;
+    max-width: 350px;
+    padding: 30px;
+    background-color: var(--gray-light);
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 5px 15px var(--shadow);
+    transition: transform 0.3s ease;
+}
+
+.gift-option:hover {
+    transform: translateY(-10px);
+}
+
+.gift-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.gift-option h3 {
+    margin-bottom: 15px;
+    color: var(--primary-dark);
+}
+
+.gift-option p {
+    margin-bottom: 20px;
+}
+
+.pix-info {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: var(--primary-light);
+    border-radius: 5px;
+}
+
+/* RSVP Section */
+.rsvp {
+    padding: 100px 0;
+    background-color: var(--primary-light);
+}
+
+.rsvp-intro {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 50px;
+}
+
+.rsvp-form {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: var(--white);
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px var(--shadow);
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--gray);
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.radio-group {
+    margin-bottom: 10px;
+}
+
+.radio-group input {
+    width: auto;
+    margin-right: 10px;
+}
+
+.radio-group label {
+    display: inline;
+    font-weight: normal;
+}
+
+/* Footer */
+footer {
+    padding: 60px 0;
+    background-color: var(--primary-dark);
+    color: var(--white);
+    text-align: center;
+}
+
+.footer-title {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.footer-date {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+.footer-message {
+    max-width: 500px;
+    margin: 0 auto 30px;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.social-link {
+    color: var(--white);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.social-link:hover {
+    color: var(--primary-light);
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .venue-details {
+        flex-direction: column;
+    }
+    
+    .timeline::before {
+        left: 30px;
+    }
+    
+    .timeline-item::after {
+        left: 30px;
+    }
+    
+    .timeline-content {
+        width: calc(100% - 80px);
+        margin-left: 80px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    header .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .wedding-date {
+        margin-left: 0;
+        margin-top: 5px;
+    }
+    
+    nav {
+        margin-top: 20px;
+    }
+    
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    nav ul li {
+        margin: 10px 0;
+    }
+    
+    .hero h2 {
+        font-size: 2.5rem;
+    }
+    
+    .countdown-item {
+        margin: 0 10px;
+        min-width: 60px;
+    }
+    
+    .countdown-item span:first-child {
+        font-size: 2rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .countdown {
+        flex-wrap: wrap;
+    }
+    
+    .countdown-item {
+        margin: 10px;
+    }
+    
+    .rsvp-form {
+        padding: 20px;
+    }
+    
+    .gift-option {
+        min-width: 100%;
+    }
+}
