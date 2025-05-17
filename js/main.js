@@ -9,6 +9,24 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
+    // Hamburger menu toggle
+    const hamburgerIcon = document.getElementById('hamburger-icon');
+    const navMenu = document.getElementById('nav-menu');
+    
+    hamburgerIcon.addEventListener('click', function() {
+        this.classList.toggle('open');
+        navMenu.classList.toggle('active');
+    });
+    
+    // Close menu when clicking on a link
+    const navLinks = document.querySelectorAll('nav ul li a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            hamburgerIcon.classList.remove('open');
+            navMenu.classList.remove('active');
+        });
+    });
+    
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
@@ -31,48 +49,34 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // RSVP form handling
     const rsvpForm = document.getElementById('rsvp-form');
-    const attendingYes = document.getElementById('attending-yes');
-    const attendingNo = document.getElementById('attending-no');
-    const guestsGroup = document.getElementById('guests-group');
-    
-    // Show/hide guests dropdown based on attendance
-    if (attendingYes && attendingNo && guestsGroup) {
-        attendingYes.addEventListener('change', function() {
-            guestsGroup.style.display = 'block';
-        });
-        
-        attendingNo.addEventListener('change', function() {
-            guestsGroup.style.display = 'none';
-        });
-    }
+    const thankYouMessage = document.getElementById('thank-you-message');
     
     // Form submission
     if (rsvpForm) {
         rsvpForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
+            // Hide the form and show the thank you message
+            rsvpForm.style.opacity = '0';
+            rsvpForm.style.transform = 'translateY(20px)';
+            
+            setTimeout(function() {
+                rsvpForm.style.display = 'none';
+                thankYouMessage.style.visibility = 'visible';
+                thankYouMessage.style.opacity = '1';
+            }, 500);
+            
             // Here you would normally send the form data to a server
-            // For this example, we'll just show an alert
-            alert('Obrigado por confirmar sua presença! Estamos ansiosos para celebrar com você.');
-            rsvpForm.reset();
+            // For this example, we're just showing the thank you message
         });
     }
     
     // Reveal animations on scroll
-    const revealElements = document.querySelectorAll('.timeline-item');
     const sections = document.querySelectorAll('section');
     
     function checkReveal() {
         const windowHeight = window.innerHeight;
         const revealPoint = 150;
-        
-        revealElements.forEach(element => {
-            const elementTop = element.getBoundingClientRect().top;
-            
-            if (elementTop < windowHeight - revealPoint) {
-                element.classList.add('revealed');
-            }
-        });
         
         sections.forEach(section => {
             const sectionTop = section.getBoundingClientRect().top;
@@ -89,11 +93,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // Check on scroll
     window.addEventListener('scroll', checkReveal);
     
-    // Add placeholder image for venue if needed
-    const venueImage = document.getElementById('venue-image');
-    if (venueImage && venueImage.getAttribute('src') === 'images/venue.jpg') {
-        venueImage.onerror = function() {
-            this.src = 'https://via.placeholder.com/600x400?text=Local+da+Cerimonia';
+    // Add placeholder image for hero background if needed
+    const hero = document.querySelector('.hero');
+    if (hero) {
+        const img = new Image();
+        img.onload = function() {
+            // Image loaded successfully
         };
+        img.onerror = function() {
+            // If image fails to load, use a fallback color
+            hero.style.backgroundImage = 'none';
+            hero.style.backgroundColor = '#e8b4b8';
+        };
+        img.src = getComputedStyle(hero).backgroundImage.replace(/url$$(['"])?(.*?)\1$$/gi, '$2');
     }
 });

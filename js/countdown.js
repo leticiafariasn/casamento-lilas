@@ -1,5 +1,5 @@
-// Set the wedding date
-const weddingDate = new Date('August 12, 2023 16:00:00').getTime();
+// Set the wedding date - October 30, 2025 at 16:00
+const weddingDate = new Date('October 30, 2025 16:00:00').getTime();
 
 // Update the countdown every second
 const countdown = setInterval(function() {

@@ -28,38 +28,6 @@
     animation: slideUp 0.8s ease-out;
 }
 
-/* Slide In Left Animation */
-@keyframes slideInLeft {
-    from {
-        transform: translateX(-100px);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-.slide-in-left {
-    animation: slideInLeft 0.8s ease-out;
-}
-
-/* Slide In Right Animation */
-@keyframes slideInRight {
-    from {
-        transform: translateX(100px);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-.slide-in-right {
-    animation: slideInRight 0.8s ease-out;
-}
-
 /* Pulse Animation */
 @keyframes pulse {
     0% {
@@ -115,18 +83,6 @@
 
 .floating {
     animation: floating 3s ease-in-out infinite;
-}
-
-/* Reveal Animation for Timeline */
-.timeline-item {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.timeline-item.revealed {
-    opacity: 1;
-    transform: translateY(0);
 }
 
 /* Fade In Animation for Sections */

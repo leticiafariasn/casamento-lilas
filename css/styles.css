@@ -131,6 +131,7 @@ header.scrolled {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+    position: relative;
 }
 
 header h1 {
@@ -147,6 +148,7 @@ header h1 {
     margin-left: 20px;
 }
 
+/* Navigation */
 nav ul {
     display: flex;
     list-style: none;
@@ -177,13 +179,60 @@ nav ul li a:hover::after {
     width: 100%;
 }
 
-.mobile-menu-btn {
+/* Hamburger Menu */
+.hamburger-menu {
     display: none;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    color: var(--text-color);
     cursor: pointer;
+}
+
+.hamburger-icon {
+    width: 30px;
+    height: 20px;
+    position: relative;
+    margin: 0px;
+    transform: rotate(0deg);
+    transition: .5s ease-in-out;
+    cursor: pointer;
+}
+
+.hamburger-icon span {
+    display: block;
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    background: var(--primary-dark);
+    border-radius: 9px;
+    opacity: 1;
+    left: 0;
+    transform: rotate(0deg);
+    transition: .25s ease-in-out;
+}
+
+.hamburger-icon span:nth-child(1) {
+    top: 0px;
+}
+
+.hamburger-icon span:nth-child(2) {
+    top: 8px;
+}
+
+.hamburger-icon span:nth-child(3) {
+    top: 16px;
+}
+
+.hamburger-icon.open span:nth-child(1) {
+    top: 8px;
+    transform: rotate(135deg);
+}
+
+.hamburger-icon.open span:nth-child(2) {
+    opacity: 0;
+    left: -60px;
+}
+
+.hamburger-icon.open span:nth-child(3) {
+    top: 8px;
+    transform: rotate(-135deg);
 }
 
 /* Hero Section */
@@ -222,6 +271,23 @@ nav ul li a:hover::after {
     font-weight: 700;
 }
 
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+/* Countdown Section */
+.countdown-section {
+    padding: 100px 0;
+    background-color: var(--white);
+    text-align: center;
+}
+
+.countdown-intro {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
 .countdown {
     display: flex;
     justify-content: center;
@@ -231,6 +297,10 @@ nav ul li a:hover::after {
 .countdown-item {
     margin: 0 15px;
     min-width: 80px;
+    background-color: var(--primary-light);
+    padding: 20px 10px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px var(--shadow);
 }
 
 .countdown-item span {
@@ -241,169 +311,14 @@ nav ul li a:hover::after {
     font-size: 2.5rem;
     font-weight: 700;
     font-family: 'Playfair Display', serif;
+    color: var(--primary-dark);
 }
 
 .countdown-label {
     font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 1px;
-}
-
-/* Our Story Section */
-.our-story {
-    padding: 100px 0;
-    background-color: var(--white);
-}
-
-.timeline {
-    position: relative;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.timeline::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    width: 2px;
-    background-color: var(--primary-light);
-    transform: translateX(-50%);
-}
-
-.timeline-item {
-    position: relative;
-    margin-bottom: 60px;
-}
-
-.timeline-item::after {
-    content: '';
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    width: 20px;
-    height: 20px;
-    background-color: var(--primary-color);
-    border-radius: 50%;
-    transform: translateX(-50%);
-}
-
-.timeline-content {
-    position: relative;
-    width: calc(50% - 40px);
-    padding: 20px;
-    background-color: var(--gray-light);
-    border-radius: 8px;
-    box-shadow: 0 5px 15px var(--shadow);
-}
-
-.timeline-item:nth-child(odd) .timeline-content {
-    margin-left: auto;
-}
-
-.timeline-item:nth-child(even) .timeline-content {
-    margin-right: auto;
-}
-
-.timeline-content h3 {
-    margin-bottom: 10px;
-    color: var(--primary-dark);
-}
-
-.timeline-content .date {
-    font-style: italic;
-    color: var(--text-light);
-    margin-bottom: 15px;
-}
-
-/* Venue Section */
-.venue {
-    padding: 100px 0;
-    background-color: var(--gray-light);
-}
-
-.venue-details {
-    display: flex;
-    align-items: center;
-    gap: 40px;
-}
-
-.venue-info, .venue-image {
-    flex: 1;
-}
-
-.venue-info h3 {
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-    color: var(--primary-dark);
-}
-
-.venue-info p {
-    margin-bottom: 15px;
-}
-
-.venue-image img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px var(--shadow);
-}
-
-/* Gifts Section */
-.gifts {
-    padding: 100px 0;
-    background-color: var(--white);
-}
-
-.gifts-intro {
-    text-align: center;
-    max-width: 700px;
-    margin: 0 auto 50px;
-}
-
-.gift-options {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
-}
-
-.gift-option {
-    flex: 1;
-    min-width: 300px;
-    max-width: 350px;
-    padding: 30px;
-    background-color: var(--gray-light);
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 5px 15px var(--shadow);
-    transition: transform 0.3s ease;
-}
-
-.gift-option:hover {
-    transform: translateY(-10px);
-}
-
-.gift-icon {
-    font-size: 3rem;
-    margin-bottom: 20px;
-}
-
-.gift-option h3 {
-    margin-bottom: 15px;
-    color: var(--primary-dark);
-}
-
-.gift-option p {
-    margin-bottom: 20px;
-}
-
-.pix-info {
-    margin-top: 20px;
-    padding: 15px;
-    background-color: var(--primary-light);
-    border-radius: 5px;
+    margin-top: 5px;
 }
 
 /* RSVP Section */
@@ -412,19 +327,49 @@ nav ul li a:hover::after {
     background-color: var(--primary-light);
 }
 
-.rsvp-intro {
-    text-align: center;
-    max-width: 700px;
-    margin: 0 auto 50px;
+.rsvp-container {
+    display: flex;
+    gap: 40px;
+    margin-top: 50px;
+}
+
+.rsvp-form-container {
+    flex: 1;
+    position: relative;
 }
 
 .rsvp-form {
-    max-width: 600px;
-    margin: 0 auto;
     background-color: var(--white);
     padding: 40px;
     border-radius: 8px;
     box-shadow: 0 5px 15px var(--shadow);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.thank-you-message {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 5px 15px var(--shadow);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    padding: 40px;
+    text-align: center;
+}
+
+.thank-you-message h3 {
+    color: var(--primary-dark);
+    margin-bottom: 20px;
+    font-size: 1.8rem;
 }
 
 .form-group {
@@ -456,18 +401,35 @@ nav ul li a:hover::after {
     border-color: var(--primary-color);
 }
 
-.radio-group {
+/* Info Cards */
+.info-cards {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info-card {
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px var(--shadow);
+    flex: 1;
+}
+
+.info-icon {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.info-card h3 {
+    color: var(--primary-dark);
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.info-card p {
     margin-bottom: 10px;
-}
-
-.radio-group input {
-    width: auto;
-    margin-right: 10px;
-}
-
-.radio-group label {
-    display: inline;
-    font-weight: normal;
 }
 
 /* Footer */
@@ -491,58 +453,47 @@ footer {
 
 .footer-message {
     max-width: 500px;
-    margin: 0 auto 30px;
-}
-
-.social-links {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-.social-link {
-    color: var(--white);
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-
-.social-link:hover {
-    color: var(--primary-light);
+    margin: 0 auto;
 }
 
 /* Responsive Styles */
 @media (max-width: 992px) {
-    .venue-details {
+    .rsvp-container {
         flex-direction: column;
     }
     
-    .timeline::before {
-        left: 30px;
+    .info-cards {
+        flex-direction: row;
     }
     
-    .timeline-item::after {
-        left: 30px;
-    }
-    
-    .timeline-content {
-        width: calc(100% - 80px);
-        margin-left: 80px !important;
+    .info-card {
+        flex: 1;
     }
 }
 
 @media (max-width: 768px) {
-    header .header-content {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .wedding-date {
-        margin-left: 0;
-        margin-top: 5px;
+    .hamburger-menu {
+        display: block;
+        z-index: 1001;
     }
     
     nav {
-        margin-top: 20px;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background-color: var(--white);
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        transition: right 0.3s ease;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    nav.active {
+        right: 0;
     }
     
     nav ul {
@@ -551,7 +502,7 @@ footer {
     }
     
     nav ul li {
-        margin: 10px 0;
+        margin: 20px 0;
     }
     
     .hero h2 {
@@ -561,6 +512,7 @@ footer {
     .countdown-item {
         margin: 0 10px;
         min-width: 60px;
+        padding: 15px 5px;
     }
     
     .countdown-item span:first-child {
@@ -570,22 +522,37 @@ footer {
     .section-title {
         font-size: 2rem;
     }
+    
+    .info-cards {
+        flex-direction: column;
+    }
 }
 
 @media (max-width: 576px) {
     .countdown {
         flex-wrap: wrap;
+        gap: 15px;
     }
     
     .countdown-item {
-        margin: 10px;
+        min-width: calc(50% - 30px);
+        margin: 0;
     }
     
     .rsvp-form {
         padding: 20px;
     }
     
-    .gift-option {
-        min-width: 100%;
+    .header-content {
+        flex-wrap: wrap;
+    }
+    
+    header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .wedding-date {
+        margin-left: 0;
+        font-size: 0.9rem;
     }
 }

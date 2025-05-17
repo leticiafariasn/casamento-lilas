@@ -14,13 +14,20 @@
     <header>
         <div class="header-content">
             <h1>Lívia & Mateus</h1>
-            <p class="wedding-date">12 de Agosto de 2023</p>
-            <nav>
+            <p class="wedding-date">30 de Outubro de 2025</p>
+            
+            <div class="hamburger-menu">
+                <div class="hamburger-icon" id="hamburger-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            
+            <nav id="nav-menu">
                 <ul>
                     <li><a href="#home">Home</a></li>
-                    <li><a href="#nossa-historia">Nossa História</a></li>
-                    <li><a href="#local">Local</a></li>
-                    <li><a href="#presentes">Presentes</a></li>
+                    <li><a href="#countdown">Contagem Regressiva</a></li>
                     <li><a href="#confirmar">Confirmar Presença</a></li>
                 </ul>
             </nav>
@@ -31,7 +38,16 @@
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <h2>Vamos nos casar!</h2>
-            <p class="countdown-label">Contagem regressiva para o grande dia:</p>
+            <p>Gostaríamos de compartilhar este momento especial com você</p>
+            <a href="#confirmar" class="btn-primary">Confirmar Presença</a>
+        </div>
+    </section>
+
+    <section id="countdown" class="countdown-section">
+        <div class="container">
+            <h2 class="section-title">Contagem Regressiva</h2>
+            <p class="countdown-intro">Faltam para o nosso grande dia:</p>
+            
             <div class="countdown" id="countdown">
                 <div class="countdown-item">
                     <span id="days">00</span>
@@ -50,159 +66,80 @@
                     <span class="countdown-label">Segundos</span>
                 </div>
             </div>
-            <a href="#confirmar" class="btn-primary">Confirmar Presença</a>
-        </div>
-    </section>
-
-    <section id="nossa-historia" class="our-story">
-        <div class="container">
-            <h2 class="section-title">Nossa História</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Como nos conhecemos</h3>
-                        <p class="date">Janeiro de 2018</p>
-                        <p>Nos conhecemos através de amigos em comum durante uma festa de aniversário. Foi uma conexão instantânea que nos levou a marcar nosso primeiro encontro na semana seguinte.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Nosso primeiro encontro</h3>
-                        <p class="date">Fevereiro de 2018</p>
-                        <p>Fomos a um café aconchegante no centro da cidade. A conversa fluiu tão naturalmente que perdemos a noção do tempo e ficamos lá até o fechamento.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Começamos a namorar</h3>
-                        <p class="date">Abril de 2018</p>
-                        <p>Após alguns encontros maravilhosos, oficializamos nosso relacionamento durante um piquenique no parque da cidade.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>O pedido de casamento</h3>
-                        <p class="date">Dezembro de 2022</p>
-                        <p>Durante uma viagem para a praia, ao pôr do sol, veio o pedido de casamento mais emocionante que poderia acontecer.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="local" class="venue">
-        <div class="container">
-            <h2 class="section-title">Local da Cerimônia</h2>
-            <div class="venue-details">
-                <div class="venue-info">
-                    <h3>Espaço Jardim das Flores</h3>
-                    <p><strong>Data:</strong> 12 de Agosto de 2023</p>
-                    <p><strong>Horário:</strong> 16:00</p>
-                    <p><strong>Endereço:</strong> Rua das Flores, 123 - Jardim Primavera</p>
-                    <p>O local conta com estacionamento gratuito e fácil acesso.</p>
-                    <a href="https://maps.google.com" target="_blank" class="btn-secondary">Ver no Mapa</a>
-                </div>
-                <div class="venue-image">
-                    <img src="images/venue.jpg" alt="Local da cerimônia" id="venue-image">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="presentes" class="gifts">
-        <div class="container">
-            <h2 class="section-title">Lista de Presentes</h2>
-            <p class="gifts-intro">Sua presença é o nosso maior presente, mas se desejar nos presentear, preparamos algumas opções:</p>
-            
-            <div class="gift-options">
-                <div class="gift-option">
-                    <div class="gift-icon">🏠</div>
-                    <h3>Lista de Presentes Virtual</h3>
-                    <p>Selecionamos alguns itens para nosso novo lar.</p>
-                    <a href="#" class="btn-secondary">Ver Lista</a>
-                </div>
-                
-                <div class="gift-option">
-                    <div class="gift-icon">✈️</div>
-                    <h3>Lua de Mel</h3>
-                    <p>Contribua para nossa viagem dos sonhos.</p>
-                    <a href="#" class="btn-secondary">Contribuir</a>
-                </div>
-                
-                <div class="gift-option">
-                    <div class="gift-icon">💰</div>
-                    <h3>Presente em Dinheiro</h3>
-                    <p>Uma opção prática que nos ajudará muito.</p>
-                    <div class="pix-info">
-                        <p><strong>PIX:</strong> email@exemplo.com</p>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
     <section id="confirmar" class="rsvp">
         <div class="container">
             <h2 class="section-title">Confirme sua Presença</h2>
-            <p class="rsvp-intro">Ficaremos muito felizes com a sua presença neste dia tão especial. Por favor, confirme até 15/07/2023.</p>
             
-            <form id="rsvp-form" class="rsvp-form">
-                <div class="form-group">
-                    <label for="name">Nome Completo</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="email">E-mail</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="phone">Telefone</label>
-                    <input type="tel" id="phone" name="phone" required>
-                </div>
-                
-                <div class="form-group">
-                    <label>Você irá ao nosso casamento?</label>
-                    <div class="radio-group">
-                        <input type="radio" id="attending-yes" name="attending" value="yes" required>
-                        <label for="attending-yes">Sim, com certeza!</label>
+            <div class="rsvp-container">
+                <div class="rsvp-form-container">
+                    <form id="rsvp-form" class="rsvp-form">
+                        <div class="form-group">
+                            <label for="name">Nome Completo</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Telefone</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="guests">Número de acompanhantes</label>
+                            <select id="guests" name="guests">
+                                <option value="0">Apenas eu</option>
+                                <option value="1">1 acompanhante</option>
+                                <option value="2">2 acompanhantes</option>
+                                <option value="3">3 acompanhantes</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Mensagem para os noivos (opcional)</label>
+                            <textarea id="message" name="message" rows="4"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary">Confirmar Presença</button>
+                    </form>
+                    
+                    <div id="thank-you-message" class="thank-you-message">
+                        <h3>Obrigado por confirmar sua presença!</h3>
+                        <p>Estamos ansiosos para celebrar com você.</p>
                     </div>
-                    <div class="radio-group">
-                        <input type="radio" id="attending-no" name="attending" value="no">
-                        <label for="attending-no">Infelizmente não poderei ir</label>
+                </div>
+                
+                <div class="info-cards">
+                    <div class="info-card">
+                        <div class="info-icon">📅</div>
+                        <h3>Data e Hora</h3>
+                        <p><strong>Data:</strong> 30 de Outubro de 2025</p>
+                        <p><strong>Horário:</strong> 16:00</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-icon">📍</div>
+                        <h3>Local</h3>
+                        <p><strong>Espaço Jardim das Flores</strong></p>
+                        <p>Rua das Flores, 123 - Jardim Primavera</p>
+                        <p>O local conta com estacionamento gratuito e fácil acesso.</p>
                     </div>
                 </div>
-                
-                <div class="form-group" id="guests-group">
-                    <label for="guests">Número de acompanhantes</label>
-                    <select id="guests" name="guests">
-                        <option value="0">Apenas eu</option>
-                        <option value="1">1 acompanhante</option>
-                        <option value="2">2 acompanhantes</option>
-                        <option value="3">3 acompanhantes</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="message">Mensagem para os noivos (opcional)</label>
-                    <textarea id="message" name="message" rows="4"></textarea>
-                </div>
-                
-                <button type="submit" class="btn-primary">Confirmar Presença</button>
-            </form>
+            </div>
         </div>
     </section>
 
     <footer>
         <div class="container">
             <h2 class="footer-title">Lívia & Mateus</h2>
-            <p class="footer-date">12.08.2023</p>
+            <p class="footer-date">30.10.2025</p>
             <p class="footer-message">Agradecemos por fazer parte deste momento tão especial!</p>
-            <div class="social-links">
-                <a href="#" class="social-link">Instagram</a>
-                <a href="#" class="social-link">Facebook</a>
-            </div>
         </div>
     </footer>
 
