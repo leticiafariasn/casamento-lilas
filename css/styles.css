@@ -511,13 +511,12 @@ nav ul li a:hover::after {
   background-color: #e0e0e0;
 }
 
-.map-section img {
+.map-section iframe {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
+  max-width: 100%;
+  height: 300px;
+  border: 0;
+  display: block;
 }
 
 .map-overlay {
