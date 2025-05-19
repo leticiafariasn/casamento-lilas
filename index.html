@@ -46,7 +46,8 @@
 
     <section id="countdown" class="countdown-section">
         <div class="container">
-            <h2 class="section-title">Contagem Regressiva</h2>
+            <h2 class="countdown-title">Contagem Regressiva</h2>
+            <div class="countdown-divider"></div>
             <p class="countdown-intro">Faltam para o nosso grande dia:</p>
             
             <div class="countdown" id="countdown">
@@ -116,20 +117,34 @@
                     </div>
                 </div>
                 
-                <div class="info-cards">
-                    <div class="info-card">
-                        <div class="info-icon"><i class="ph ph-calendar"></i></div>
-                        <h3>Data e Hora</h3>
-                        <p><strong>Data:</strong> 30 de Outubro de 2025</p>
-                        <p><strong>Horário:</strong> 16:00</p>
+                <div class="info-card">
+                    <div class="info-sections">
+                        <div class="date-section">
+                            <div class="info-title">
+                                <i class="bi bi-calendar-heart"></i>
+                                <h3>Data e Hora</h3>
+                            </div>
+                            <p class="info-primary">30 de Outubro de 2025</p>
+                            <p class="info-secondary">Cerimônia às 16:00</p>
+                        </div>
+                        
+                        <div class="location-section">
+                            <div class="info-title">
+                                <i class="bi bi-geo-alt-fill"></i>
+                                <h3>Local da Cerimônia</h3>
+                            </div>
+                            <p class="info-primary">Espaço Jardim das Flores</p>
+                            <p class="info-secondary">Rua das Flores, 123 - Jardim Primavera</p>
+                        </div>
                     </div>
                     
-                    <div class="info-card">
-                        <div class="info-icon"><i class="ph ph-map-pin"></i></div>
-                        <h3>Local</h3>
-                        <p><strong>Espaço Jardim das Flores</strong></p>
-                        <p>Rua das Flores, 123 - Jardim Primavera</p>
-                        <p>O local conta com estacionamento gratuito e fácil acesso.</p>
+                    <div class="map-container">
+                        <img src="https://maps.googleapis.com/maps/api/staticmap?center=Rua+das+Flores,123,Jardim+Primavera&zoom=15&size=600x300&maptype=roadmap&markers=color:red%7CRua+das+Flores,123,Jardim+Primavera&key=YOUR_API_KEY" alt="Mapa do local">
+                        <div class="map-overlay">
+                            <a href="https://maps.google.com/?q=Rua+das+Flores,123,Jardim+Primavera" target="_blank" class="btn-map">
+                                <i class="bi bi-map"></i> Ver no mapa
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
