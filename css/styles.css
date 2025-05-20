@@ -118,7 +118,7 @@ a:hover {
 }
 
 .btn-map {
-  background-color: var(--primary-color);
+  background-color: var(--primary-dark);
   color: var(--white);
   display: inline-flex;
   align-items: center;
