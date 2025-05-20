@@ -94,3 +94,15 @@ section {
 section.visible {
   opacity: 1;
 }
+
+button .loading {
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+}
+
+/* Animação para o loader */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
