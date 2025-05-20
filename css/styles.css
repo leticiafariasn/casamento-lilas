@@ -1,16 +1,16 @@
 :root {
-  --primary-color: #e8b4b8; /* Light rose */
-  --primary-dark: #d4919a; /* Darker rose */
-  --primary-light: #f5d6d9; /* Very light rose */
-  --accent-color: #f2c1c7; /* Medium rose */
-  --text-color: #4a3b3c; /* Dark rose-brown */
-  --text-light: #8a7275; /* Light rose-brown */
+  --primary-color: #e8b4b8;
+  --primary-dark: #d4919a;
+  --primary-light: #f5d6d9;
+  --accent-color: #f2c1c7;
+  --text-color: #4a3b3c;
+  --text-light: #8a7275;
   --white: #ffffff;
   --off-white: #faf6f7;
   --gray-light: #f0e6e8;
   --gray: #d9d0d2;
   --shadow: rgba(212, 145, 154, 0.1);
-  --countdown-color: #c28285; /* Soft rose-mauve for countdown */
+  --countdown-color: #c28285;
 }
 
 * {
@@ -118,7 +118,7 @@ a:hover {
 }
 
 .btn-map {
-  background-color: rgba(212, 145, 154, 0.8);
+  background-color: var(--primary-color);
   color: var(--white);
   display: inline-flex;
   align-items: center;
