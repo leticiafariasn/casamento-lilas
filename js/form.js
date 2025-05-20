@@ -19,17 +19,17 @@ const handleSubmit = (event) =>{
     const email = document.querySelector('input[name=email').value;
     const telefone = document.querySelector('input[name=telefone').value;
     const acompanhantes = document.querySelector('select[name=acompanhantes').value;
-    const messagem = document.querySelector('textarea[name=messagem').value;
+    const mensagem = document.querySelector('textarea[name=mensagem').value;
 
 
-    fetch('https://api.sheetmonkey.io/form/6X4bfe7zFzeaAe6SXLX3rJ',{
+    fetch('https://api.sheetmonkey.io/form/ri6NRsJ9mYsHBm1YZvXR5y',{
         
         method:'post',
         headers:{
             'Accept':'application/json',
             'Content-Type':'application/json',
         },
-        body: JSON.stringify({ nome, email, telefone,acompanhantes,messagem}),
+        body: JSON.stringify({ nome, email, telefone,acompanhantes,mensagem}),
     }).then(() => removeoading()); 
 }
 
