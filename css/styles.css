@@ -132,6 +132,7 @@ a:hover {
   background-color: var(--primary-color);
   color: var(--white);
   box-shadow: 0 5px 15px var(--shadow);
+  transform: translateY(-2px);
 }
 
 .btn-map i {
@@ -460,10 +461,6 @@ nav ul li a:hover::after {
   display: flex;
   flex-direction: column;
   height: 100%;
-}
-
-.info-card:hover {
-  transform: translateY(-5px);
 }
 
 .info-section {
