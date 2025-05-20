@@ -26,3 +26,4 @@ const countdown = setInterval(() => {
     document.getElementById("countdown").innerHTML = "<h3>Nosso grande dia chegou!</h3>"
   }
 }, 1000)
+

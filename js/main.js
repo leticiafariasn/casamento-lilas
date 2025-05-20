@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", () => {
   // Header scroll effect
   const header = document.querySelector("header")
@@ -47,33 +48,89 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   })
 
-  // RSVP form handling
+// RSVP form handling
   const rsvpForm = document.getElementById("rsvp-form")
   const thankYouMessage = document.getElementById("thank-you-message")
+  const submitButton = document.getElementById("submit-button")
 
   // Form submission
-  if (rsvpForm) {
+  if (rsvpForm && thankYouMessage) {
     rsvpForm.addEventListener("submit", (e) => {
       e.preventDefault()
 
-      // Fade out the form
-      rsvpForm.style.opacity = "0"
-      rsvpForm.style.transform = "translateY(20px)"
+      // Mostrar indicador de carregamento se o botão existir
+      if (submitButton) {
+        submitButton.innerHTML = '<img src="./images/loading.webp" class="loading" alt="Carregando...">'
+        submitButton.disabled = true
+      }
 
-      setTimeout(() => {
-        // Hide form and show thank you message
-        rsvpForm.style.display = "none"
-        thankYouMessage.style.display = "block"
+      // Coletar dados do formulário
+      const formData = new FormData(rsvpForm)
+      const formDataObj = Object.fromEntries(formData.entries())
 
-        // Trigger reflow to ensure transition works
-        void thankYouMessage.offsetWidth
+      // Enviar dados para a API (se necessário)
+      // Exemplo: enviar para SheetMonkey ou outro serviço
+      const sendData = () => {
+        return new Promise((resolve, reject) => {
+          // Simulando envio de dados (substitua por sua implementação real)
+          setTimeout(() => {
+            // Descomente e adapte o código abaixo para envio real
+            fetch("https://api.sheetmonkey.io/form/ri6NRsJ9mYsHBm1YZvXR5y", {
+              method: "post",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(formDataObj),
+            }).then(resolve).catch(reject)
 
-        // Fade in thank you message
-        thankYouMessage.style.opacity = "1"
-      }, 500)
 
-      // Here you would normally send the form data to a server
-      // For this example, we're just showing the thank you message
+            // Para teste, apenas resolve após 1 segundo
+            resolve()
+          }, 1000)
+        })
+      }
+
+      // Processar envio
+      sendData()
+        .then(() => {
+          // Restaurar botão se necessário
+          if (submitButton) {
+            submitButton.innerHTML = "Confirmar Presença"
+            submitButton.disabled = false
+          }
+
+          // Fade out the form
+          rsvpForm.style.opacity = "0"
+          rsvpForm.style.transform = "translateY(20px)"
+
+          setTimeout(() => {
+            // Hide form and show thank you message
+            rsvpForm.style.display = "none"
+            thankYouMessage.style.display = "block"
+
+            // Trigger reflow to ensure transition works
+            void thankYouMessage.offsetWidth
+
+            // Fade in thank you message
+            thankYouMessage.style.opacity = "1"
+
+            // Adjust height after transition
+            // adjustInfoCardHeight()
+          }, 500)
+        })
+        .catch((error) => {
+          console.error("Erro ao enviar o formulário:", error)
+
+          // Restaurar botão
+          if (submitButton) {
+            submitButton.innerHTML = "Confirmar Presença"
+            submitButton.disabled = false
+          }
+
+          // Mostrar mensagem de erro
+          alert("Ocorreu um erro ao enviar o formulário. Por favor, tente novamente.")
+        })
     })
   }
 
@@ -100,8 +157,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Run on load and resize
-  window.addEventListener("load", adjustInfoCardHeight)
-  window.addEventListener("resize", adjustInfoCardHeight)
+  // window.addEventListener("load", adjustInfoCardHeight)
+  // window.addEventListener("resize", adjustInfoCardHeight)
 
   // Reveal animations on scroll
   const sections = document.querySelectorAll("section")

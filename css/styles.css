@@ -452,7 +452,6 @@ nav ul li a:hover::after {
   transition: transform 0.3s ease;
   display: flex;
   flex-direction: column;
-  height: 100%;
 }
 
 .info-section {
@@ -565,7 +564,7 @@ footer {
   }
 }
 
-@media (min-width: 768px) and (max-width: 991px) {
+@media (min-width: 991px) and (max-width: 991px) {
   .info-card {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -679,4 +678,113 @@ footer {
   .info-section {
     padding: 20px;
   }
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Slide Up Animation */
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.slide-up {
+  animation: slideUp 0.8s ease-out;
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+/* Heartbeat Animation */
+@keyframes heartbeat {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.1);
+  }
+  50% {
+    transform: scale(1);
+  }
+  75% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.heartbeat {
+  animation: heartbeat 1.5s infinite;
+}
+
+/* Floating Animation */
+@keyframes floating {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.floating {
+  animation: floating 3s ease-in-out infinite;
+}
+
+/* Fade In Animation for Sections */
+section {
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+section.visible {
+  opacity: 1;
+}
+
+button .loading {
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+}
+
+/* Animação para o loader */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
