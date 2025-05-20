@@ -140,3 +140,8 @@ document.addEventListener("DOMContentLoaded", () => {
     img.src = getComputedStyle(hero).backgroundImage.replace(/url$$['"]?(.*?)['"]?$$/gi, "$1")
   }
 })
+
+window.addEventListener("scroll", function () {
+    const header = document.querySelector("header");
+    header.classList.toggle("scrolled-blur", window.scrollY > 10);
+  });

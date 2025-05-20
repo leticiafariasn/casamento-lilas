@@ -140,15 +140,19 @@ a:hover {
 
 /* Header */
 header {
-  background-color: rgba(255, 255, 255, 0.5); /* um pouco mais transparente */
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px); /* compatibilidade com Safari */
+  background-color: rgba(255, 255, 255, 1); /* sólido */
+  transition: all 0.3s ease;
   position: fixed;
   width: 100%;
   z-index: 1000;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   padding: 15px 0;
-  transition: all 0.3s ease;
+}
+
+header.scrolled-blur {
+  background-color: rgba(255, 255, 255, 0.5); /* mais transparente */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 header.scrolled {
