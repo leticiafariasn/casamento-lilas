@@ -60,7 +60,7 @@ a:hover {
   text-align: center;
   font-size: 2.5rem;
   margin-bottom: 2rem;
-  color: var(--primary-dark);
+  color: var(--countdown-color);
   position: relative;
   padding-bottom: 1rem;
   font-weight: 400;
@@ -310,7 +310,7 @@ nav ul li a:hover::after {
 }
 
 .countdown-title {
-  color: var(--primary-dark);
+  color: var(--countdown-color);
   font-size: 2.8rem;
   margin-bottom: 1.5rem;
   font-weight: 400;
@@ -403,7 +403,7 @@ nav ul li a:hover::after {
 }
 
 .thank-you-message h3 {
-  color: var(--primary-dark);
+  color: var(--countdown-color);
   margin-bottom: 20px;
   font-size: 2rem;
   font-weight: 400;
@@ -467,11 +467,11 @@ nav ul li a:hover::after {
   align-items: center;
   gap: 10px;
   margin-bottom: 15px;
-  color: var(--primary-dark);
+  color: var(--countdown-color);
 }
 
 .info-title i {
-  color: var(--primary-dark);
+  color: var(--countdown-color);
   font-size: 1.3rem;
 }
 
@@ -479,7 +479,7 @@ nav ul li a:hover::after {
   font-size: 1.5rem;
   font-weight: 500;
   margin: 0;
-  color: var(--primary-dark);
+  color: var(--countdown-color);
 }
 
 .info-primary {
