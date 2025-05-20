@@ -77,7 +77,6 @@ a:hover {
   background-color: var(--primary-color);
 }
 
-/* Buttons */
 .btn-primary,
 .btn-secondary,
 .btn-map {
@@ -139,9 +138,8 @@ a:hover {
   font-size: 1.1rem;
 }
 
-/* Header */
 header {
-  background-color: rgba(255, 255, 255, 1); /* sólido */
+  background-color: rgba(255, 255, 255, 1);
   transition: all 0.3s ease;
   position: fixed;
   width: 100%;
@@ -151,7 +149,7 @@ header {
 }
 
 header.scrolled-blur {
-  background-color: rgba(255, 255, 255, 0.5); /* mais transparente */
+  background-color: rgba(255, 255, 255, 0.5); 
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
@@ -180,7 +178,6 @@ header h1 {
   margin-left: 20px;
 }
 
-/* Navigation */
 nav ul {
   display: flex;
   list-style: none;
@@ -211,7 +208,6 @@ nav ul li a:hover::after {
   width: 100%;
 }
 
-/* Hamburger Menu */
 .hamburger-menu {
   display: none;
   cursor: pointer;
@@ -267,7 +263,6 @@ nav ul li a:hover::after {
   transform: rotate(-135deg);
 }
 
-/* Hero Section */
 .hero {
   height: 100vh;
   background-image: url("../images/hero-bg.jpg");
@@ -308,7 +303,6 @@ nav ul li a:hover::after {
   margin-bottom: 2rem;
 }
 
-/* Countdown Section */
 .countdown-section {
   padding: 100px 0;
   background-color: var(--off-white);
@@ -372,7 +366,6 @@ nav ul li a:hover::after {
   margin: 0 auto 40px;
 }
 
-/* RSVP Section */
 .rsvp {
   padding: 100px 0;
   background-color: var(--primary-light);
@@ -451,7 +444,6 @@ nav ul li a:hover::after {
   border-color: var(--primary-color);
 }
 
-/* Info Card */
 .info-card {
   background-color: var(--white);
   border-radius: 8px;
@@ -529,7 +521,6 @@ nav ul li a:hover::after {
   align-items: center;
 }
 
-/* Footer */
 footer {
   padding: 60px 0;
   background-color: var(--primary-dark);
@@ -553,7 +544,6 @@ footer {
   margin: 0 auto;
 }
 
-/* Responsive Styles */
 @media (min-width: 992px) {
   .rsvp-container {
     flex-direction: row;
