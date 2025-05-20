@@ -1,7 +1,7 @@
 const button = document.getElementById ('submit');
 
 const addLoading = () =>{
-    button.innerHTML = '<img src="./images/loading.webp" class = "loading">';
+    button.innerHTML = '<img src="./images/spinner.svg" class = "loading">';
 }
 
 const removeoading = () =>{
