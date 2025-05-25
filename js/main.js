@@ -52,6 +52,137 @@ document.addEventListener("DOMContentLoaded", () => {
   const thankYouMessage = document.getElementById("thank-you-message")
   const submitButton = document.getElementById("submit-button")
 
+  // Configurar o botão de download PDF
+  const setupPdfDownload = (formDataObj) => {
+    const downloadButton = document.getElementById("download-pdf")
+    if (downloadButton) {
+      downloadButton.addEventListener("click", () => {
+        // Criar um elemento temporário para o PDF com melhor estrutura
+        const pdfContent = document.createElement("div")
+        pdfContent.style.cssText = `
+          padding: 40px;
+          background-color: white;
+          font-family: 'Poppins', sans-serif;
+          color: #4a3b3c;
+          max-width: 600px;
+          margin: 0 auto;
+        `
+
+        pdfContent.innerHTML = `
+          <div style="text-align: center; margin-bottom: 30px;">
+            <h1 style="color: #c28285; font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 10px;">Lívia & Mateus</h1>
+            <p style="color: #8a7275; font-style: italic; font-size: 1.1rem;">30 de Outubro de 2025</p>
+          </div>
+          
+          <div style="border: 2px solid #e8b4b8; border-radius: 8px; padding: 30px; margin-bottom: 30px;">
+            <h2 style="color: #c28285; text-align: center; margin-bottom: 20px; font-family: 'Playfair Display', serif;">Confirmação de Presença</h2>
+            
+            <div style="margin-bottom: 15px;">
+              <strong>Nome:</strong> ${formDataObj.nome}
+            </div>
+            
+            <div style="margin-bottom: 15px;">
+              <strong>Email:</strong> ${formDataObj.email}
+            </div>
+            
+            <div style="margin-bottom: 15px;">
+              <strong>Telefone:</strong> ${formDataObj.telefone}
+            </div>
+            
+            <div style="margin-bottom: 15px;">
+              <strong>Número de acompanhantes:</strong> ${formDataObj.acompanhantes}
+            </div>
+            
+            ${
+              formDataObj.mensagem
+                ? `
+            <div style="margin-bottom: 15px;">
+              <strong>Mensagem:</strong> ${formDataObj.mensagem}
+            </div>
+            `
+                : ""
+            }
+          </div>
+          
+          <div style="background-color: #f5d6d9; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
+            <h3 style="color: #c28285; margin-bottom: 15px; text-align: center;">Informações do Evento</h3>
+            
+            <div style="margin-bottom: 10px;">
+              <strong>Data:</strong> 30 de Outubro de 2025
+            </div>
+            
+            <div style="margin-bottom: 10px;">
+              <strong>Horário:</strong> 16:00
+            </div>
+            
+            <div style="margin-bottom: 10px;">
+              <strong>Local:</strong> Espaço Jardim das Flores
+            </div>
+            
+            <div>
+              <strong>Endereço:</strong> Rua das Flores, 123 - Jardim Primavera
+            </div>
+          </div>
+          
+          <div style="text-align: center; color: #8a7275; font-style: italic;">
+            <p>Agradecemos por confirmar sua presença!</p>
+            <p>Estamos ansiosos para celebrar este momento especial com você.</p>
+          </div>
+        `
+
+        // Adicionar o elemento temporário ao body (invisível)
+        pdfContent.style.position = "absolute"
+        pdfContent.style.left = "-9999px"
+        pdfContent.style.top = "0"
+        document.body.appendChild(pdfContent)
+
+        // Configurações do PDF
+        const opt = {
+          margin: [0.5, 0.5, 0.5, 0.5],
+          filename: `confirmacao-presenca-${formDataObj.nome.replace(/\s+/g, "-").toLowerCase()}.pdf`,
+          image: {
+            type: "jpeg",
+            quality: 0.98,
+          },
+          html2canvas: {
+            scale: 2,
+            useCORS: true,
+            allowTaint: true,
+            backgroundColor: "#ffffff",
+            width: 600,
+            height: 800,
+          },
+          jsPDF: {
+            unit: "in",
+            format: "a4",
+            orientation: "portrait",
+          },
+        }
+
+        // Gerar o PDF
+        if (typeof html2pdf !== "undefined") {
+          html2pdf()
+            .set(opt)
+            .from(pdfContent)
+            .save()
+            .then(() => {
+              // Remover o elemento temporário
+              document.body.removeChild(pdfContent)
+            })
+            .catch((error) => {
+              console.error("Erro ao gerar PDF:", error)
+              document.body.removeChild(pdfContent)
+              alert("Erro ao gerar o PDF. Tente novamente.")
+            })
+        } else {
+          console.error("html2pdf não está carregado")
+          document.body.removeChild(pdfContent)
+          alert("Erro: Biblioteca de PDF não carregada.")
+        }
+      })
+    }
+  }
+
   // Form submission
   if (rsvpForm && thankYouMessage) {
     rsvpForm.addEventListener("submit", (e) => {
@@ -74,6 +205,7 @@ document.addEventListener("DOMContentLoaded", () => {
           // Simulando envio de dados (substitua por sua implementação real)
           setTimeout(() => {
             // Descomente e adapte o código abaixo para envio real
+            /*
             fetch("https://api.sheetmonkey.io/form/ri6NRsJ9mYsHBm1YZvXR5y", {
               method: "post",
               headers: {
@@ -84,6 +216,7 @@ document.addEventListener("DOMContentLoaded", () => {
             })
               .then(resolve)
               .catch(reject)
+            */
 
             // Para teste, apenas resolve após 1 segundo
             resolve()
@@ -120,67 +253,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             thankYouMessage.style.display = "block"
 
-            // Configurar o botão de download PDF
-            const setupPdfDownload = () => {
-              const downloadButton = document.getElementById("download-pdf")
-              if (downloadButton) {
-                downloadButton.addEventListener("click", () => {
-                  const element = document.getElementById("thank-you-message")
-
-                  // Garantir que o elemento esteja completamente visível
-                  const originalTransition = element.style.transition
-                  const originalOpacity = element.style.opacity
-                  const originalDisplay = element.style.display
-
-                  // Forçar visibilidade total
-                  element.style.transition = "none"
-                  element.style.opacity = "1"
-                  element.style.display = "block"
-
-                  // Aguardar um frame para garantir que o DOM foi atualizado
-                  requestAnimationFrame(() => {
-                    const opt = {
-                      margin: [0.5, 0.5, 0.5, 0.5],
-                      filename: "confirmacao-presenca-livia-mateus.pdf",
-                      image: {
-                        type: "jpeg",
-                        quality: 0.98,
-                      },
-                      html2canvas: {
-                        scale: 2,
-                        useCORS: true,
-                        allowTaint: true,
-                        backgroundColor: "#ffffff",
-                      },
-                      jsPDF: {
-                        unit: "in",
-                        format: "a4",
-                        orientation: "portrait",
-                      },
-                    }
-
-                    // Check if html2pdf is defined before using it
-                    if (typeof html2pdf !== "undefined") {
-                      html2pdf()
-                        .set(opt)
-                        .from(element)
-                        .save()
-                        .then(() => {
-                          // Restaurar estilos originais após a geração
-                          element.style.transition = originalTransition
-                          element.style.opacity = originalOpacity
-                          element.style.display = originalDisplay
-                        })
-                    } else {
-                      console.error("html2pdf is not defined. Make sure the library is included.")
-                    }
-                  })
-                })
-              }
-            }
-
-            // Chamar a função após criar o botão
-            setupPdfDownload()
+            // Chamar a função de configuração do PDF passando os dados do formulário
+            setupPdfDownload(formDataObj)
 
             // Trigger reflow to ensure transition works
             void thankYouMessage.offsetWidth
@@ -225,7 +299,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Check on scroll
   window.addEventListener("scroll", checkReveal)
-
 })
 
 window.addEventListener("scroll", () => {
