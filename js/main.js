@@ -58,213 +58,118 @@ document.addEventListener("DOMContentLoaded", () => {
     if (downloadButton) {
       downloadButton.addEventListener("click", async () => {
         try {
+          // Verificar se as bibliotecas estão carregadas
+          if (typeof html2canvas === "undefined" || typeof window.jsPDF === "undefined") {
+            alert("Erro: Bibliotecas de PDF não carregadas. Recarregue a página e tente novamente.")
+            return
+          }
+
           // Mostrar loading no botão
           const originalText = downloadButton.textContent
           downloadButton.textContent = "Gerando PDF..."
           downloadButton.disabled = true
 
-          // Carregar jsPDF dinamicamente
-          await window.loadJsPDF()
+          // Criar conteúdo HTML para o PDF
+          const pdfContent = document.getElementById("pdf-content")
+          pdfContent.innerHTML = `
+            <div style="text-align: center; margin-bottom: 30px; padding: 20px; background: linear-gradient(135deg, #e8b4b8, #f2c1c7); border-radius: 10px;">
+              <h1 style="color: #4a3b3c; font-family: 'Playfair Display', serif; font-size: 36px; margin: 0; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">Lívia & Mateus</h1>
+              <p style="color: #8a7275; font-style: italic; font-size: 18px; margin: 10px 0 0 0;">30 de Outubro de 2025</p>
+            </div>
+            
+            <div style="border: 3px solid #e8b4b8; border-radius: 15px; padding: 30px; margin-bottom: 30px; background: #faf6f7;">
+              <h2 style="color: #c28285; text-align: center; margin-bottom: 25px; font-family: 'Playfair Display', serif; font-size: 24px;">✨ Confirmação de Presença ✨</h2>
+              
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                <div>
+                  <p style="margin: 10px 0; font-size: 14px;"><strong style="color: #c28285;">Nome:</strong><br>${formDataObj.nome}</p>
+                  <p style="margin: 10px 0; font-size: 14px;"><strong style="color: #c28285;">Email:</strong><br>${formDataObj.email}</p>
+                </div>
+                <div>
+                  <p style="margin: 10px 0; font-size: 14px;"><strong style="color: #c28285;">Telefone:</strong><br>${formDataObj.telefone}</p>
+                  <p style="margin: 10px 0; font-size: 14px;"><strong style="color: #c28285;">Acompanhantes:</strong><br>${formDataObj.acompanhantes === "0" ? "Apenas eu" : formDataObj.acompanhantes}</p>
+                </div>
+              </div>
+              
+              ${
+                formDataObj.mensagem
+                  ? `
+              <div style="margin-top: 20px; padding: 15px; background: #f5d6d9; border-radius: 8px;">
+                <p style="margin: 0; font-size: 14px;"><strong style="color: #c28285;">Mensagem:</strong><br>${formDataObj.mensagem}</p>
+              </div>
+              `
+                  : ""
+              }
+            </div>
+            
+            <div style="background: linear-gradient(135deg, #f5d6d9, #e8b4b8); padding: 25px; border-radius: 15px; margin-bottom: 30px;">
+              <h3 style="color: #4a3b3c; margin-bottom: 20px; text-align: center; font-family: 'Playfair Display', serif; font-size: 20px;">🌸 Informações do Evento 🌸</h3>
+              
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                  <p style="margin: 8px 0; font-size: 14px;"><strong style="color: #4a3b3c;">Data:</strong><br>30 de Outubro de 2025</p>
+                  <p style="margin: 8px 0; font-size: 14px;"><strong style="color: #4a3b3c;">Horário:</strong><br>16:00</p>
+                </div>
+                <div>
+                  <p style="margin: 8px 0; font-size: 14px;"><strong style="color: #4a3b3c;">Local:</strong><br>Espaço Jardim das Flores</p>
+                  <p style="margin: 8px 0; font-size: 14px;"><strong style="color: #4a3b3c;">Endereço:</strong><br>Rua das Flores, 123<br>Jardim Primavera</p>
+                </div>
+              </div>
+            </div>
+            
+            <div style="text-align: center; color: #8a7275; font-style: italic; padding: 20px; border-top: 2px solid #e8b4b8;">
+              <p style="margin: 5px 0; font-size: 14px;">💕 Agradecemos por confirmar sua presença! 💕</p>
+              <p style="margin: 5px 0; font-size: 14px;">Estamos ansiosos para celebrar este momento especial com você.</p>
+            </div>
+          `
 
-          const { jsPDF } = window.jsPDF
-          const doc = new jsPDF()
+          // Aguardar um pouco para o conteúdo renderizar
+          await new Promise((resolve) => setTimeout(resolve, 100))
 
-          // Configurar cores do tema
-          const primaryColor = [196, 130, 133] // #c28285
-          const primaryDark = [212, 145, 154] // #d4919a
-          const textColor = [74, 59, 60] // #4a3b3c
-          const lightColor = [138, 114, 117] // #8a7275
-          const bgColor = [245, 214, 217] // #f5d6d9
-
-          // Configurar página
-          const pageWidth = doc.internal.pageSize.getWidth()
-          const pageHeight = doc.internal.pageSize.getHeight()
-
-          // Background suave
-          doc.setFillColor(...bgColor)
-          doc.rect(0, 0, pageWidth, pageHeight, "F")
-
-          // Header decorativo
-          doc.setFillColor(...primaryColor)
-          doc.rect(0, 0, pageWidth, 25, "F")
-
-          // Título principal
-          doc.setFontSize(28)
-          doc.setTextColor(255, 255, 255)
-          doc.setFont("helvetica", "bold")
-          doc.text("Lívia & Mateus", pageWidth / 2, 18, { align: "center" })
-
-          // Data do casamento
-          doc.setFontSize(16)
-          doc.setTextColor(...textColor)
-          doc.setFont("helvetica", "italic")
-          doc.text("30 de Outubro de 2025", pageWidth / 2, 40, { align: "center" })
-
-          // Ornamento decorativo
-          doc.setDrawColor(...primaryColor)
-          doc.setLineWidth(1)
-          doc.line(50, 50, pageWidth - 50, 50)
-
-          // Pequenos círculos decorativos
-          doc.setFillColor(...primaryColor)
-          doc.circle(pageWidth / 2 - 20, 50, 2, "F")
-          doc.circle(pageWidth / 2, 50, 3, "F")
-          doc.circle(pageWidth / 2 + 20, 50, 2, "F")
-
-          // Título da seção
-          doc.setFontSize(22)
-          doc.setTextColor(...primaryDark)
-          doc.setFont("helvetica", "bold")
-          doc.text("Confirmação de Presença", pageWidth / 2, 70, { align: "center" })
-
-          // Caixa principal de informações
-          doc.setFillColor(255, 255, 255)
-          doc.setDrawColor(...primaryColor)
-          doc.setLineWidth(2)
-          doc.roundedRect(20, 85, pageWidth - 40, 90, 5, 5, "FD")
-
-          // Informações do convidado
-          doc.setFontSize(14)
-          doc.setTextColor(...textColor)
-          doc.setFont("helvetica", "normal")
-
-          let yPosition = 105
-          const lineHeight = 15
-          const leftMargin = 30
-
-          // Nome
-          doc.setFont("helvetica", "bold")
-          doc.setTextColor(...primaryDark)
-          doc.text("Nome:", leftMargin, yPosition)
-          doc.setFont("helvetica", "normal")
-          doc.setTextColor(...textColor)
-          doc.text(formDataObj.nome, leftMargin + 25, yPosition)
-
-          yPosition += lineHeight
-
-          // Email
-          doc.setFont("helvetica", "bold")
-          doc.setTextColor(...primaryDark)
-          doc.text("Email:", leftMargin, yPosition)
-          doc.setFont("helvetica", "normal")
-          doc.setTextColor(...textColor)
-          doc.text(formDataObj.email, leftMargin + 25, yPosition)
-
-          yPosition += lineHeight
-
-          // Telefone
-          doc.setFont("helvetica", "bold")
-          doc.setTextColor(...primaryDark)
-          doc.text("Telefone:", leftMargin, yPosition)
-          doc.setFont("helvetica", "normal")
-          doc.setTextColor(...textColor)
-          doc.text(formDataObj.telefone, leftMargin + 35, yPosition)
-
-          yPosition += lineHeight
-
-          // Acompanhantes
-          doc.setFont("helvetica", "bold")
-          doc.setTextColor(...primaryDark)
-          doc.text("Acompanhantes:", leftMargin, yPosition)
-          doc.setFont("helvetica", "normal")
-          doc.setTextColor(...textColor)
-          const acompanhantesText = formDataObj.acompanhantes === "0" ? "Apenas eu" : formDataObj.acompanhantes
-          doc.text(acompanhantesText, leftMargin + 55, yPosition)
-
-          // Mensagem (se houver)
-          if (formDataObj.mensagem && formDataObj.mensagem.trim() !== "") {
-            yPosition += lineHeight + 5
-            doc.setFont("helvetica", "bold")
-            doc.setTextColor(...primaryDark)
-            doc.text("Mensagem:", leftMargin, yPosition)
-            yPosition += 10
-            doc.setFont("helvetica", "normal")
-            doc.setTextColor(...textColor)
-            doc.setFontSize(12)
-
-            // Quebrar texto longo em múltiplas linhas
-            const splitMessage = doc.splitTextToSize(formDataObj.mensagem, pageWidth - 60)
-            doc.text(splitMessage, leftMargin, yPosition)
-          }
-
-          // Seção de informações do evento
-          yPosition = 195
-          doc.setFillColor(...bgColor)
-          doc.setDrawColor(...primaryColor)
-          doc.setLineWidth(1)
-          doc.roundedRect(20, yPosition, pageWidth - 40, 70, 5, 5, "FD")
-
-          yPosition += 20
-          doc.setFontSize(18)
-          doc.setTextColor(...primaryDark)
-          doc.setFont("helvetica", "bold")
-          doc.text("Informações do Evento", pageWidth / 2, yPosition, { align: "center" })
-
-          yPosition += 20
-          doc.setFontSize(12)
-          doc.setTextColor(...textColor)
-          doc.setFont("helvetica", "normal")
-
-          // Informações do evento em duas colunas
-          const col1X = 30
-          const col2X = pageWidth / 2 + 10
-
-          // Coluna 1
-          doc.setFont("helvetica", "bold")
-          doc.setTextColor(...primaryDark)
-          doc.text("Data:", col1X, yPosition)
-          doc.setFont("helvetica", "normal")
-          doc.setTextColor(...textColor)
-          doc.text("30 de Outubro de 2025", col1X, yPosition + 10)
-
-          doc.setFont("helvetica", "bold")
-          doc.setTextColor(...primaryDark)
-          doc.text("Horário:", col1X, yPosition + 25)
-          doc.setFont("helvetica", "normal")
-          doc.setTextColor(...textColor)
-          doc.text("16:00", col1X, yPosition + 35)
-
-          // Coluna 2
-          doc.setFont("helvetica", "bold")
-          doc.setTextColor(...primaryDark)
-          doc.text("Local:", col2X, yPosition)
-          doc.setFont("helvetica", "normal")
-          doc.setTextColor(...textColor)
-          doc.text("Espaço Jardim das Flores", col2X, yPosition + 10)
-
-          doc.setFont("helvetica", "bold")
-          doc.setTextColor(...primaryDark)
-          doc.text("Endereço:", col2X, yPosition + 25)
-          doc.setFont("helvetica", "normal")
-          doc.setTextColor(...textColor)
-          const endereco = doc.splitTextToSize("Rua das Flores, 123 - Jardim Primavera", 80)
-          doc.text(endereco, col2X, yPosition + 35)
-
-          // Mensagem final
-          yPosition = pageHeight - 40
-          doc.setFontSize(12)
-          doc.setTextColor(...lightColor)
-          doc.setFont("helvetica", "italic")
-          doc.text("Agradecemos por confirmar sua presença!", pageWidth / 2, yPosition, { align: "center" })
-          doc.text("Estamos ansiosos para celebrar este momento especial com você.", pageWidth / 2, yPosition + 10, {
-            align: "center",
+          // Capturar o elemento como imagem
+          const canvas = await html2canvas(pdfContent, {
+            backgroundColor: "#ffffff",
+            scale: 2,
+            useCORS: true,
+            allowTaint: true,
+            width: 800,
+            height: pdfContent.scrollHeight,
           })
 
-          // Rodapé decorativo
-          doc.setDrawColor(...primaryColor)
-          doc.setLineWidth(0.5)
-          doc.line(50, pageHeight - 15, pageWidth - 50, pageHeight - 15)
+          // Criar PDF
+          const { jsPDF } = window.jsPDF
+          const pdf = new jsPDF("p", "mm", "a4")
+
+          const imgData = canvas.toDataURL("image/png")
+          const imgWidth = 210 // A4 width in mm
+          const pageHeight = 295 // A4 height in mm
+          const imgHeight = (canvas.height * imgWidth) / canvas.width
+          let heightLeft = imgHeight
+
+          let position = 0
+
+          // Adicionar primeira página
+          pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight)
+          heightLeft -= pageHeight
+
+          // Adicionar páginas extras se necessário
+          while (heightLeft >= 0) {
+            position = heightLeft - imgHeight
+            pdf.addPage()
+            pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight)
+            heightLeft -= pageHeight
+          }
 
           // Salvar o PDF
           const fileName = `confirmacao-presenca-${formDataObj.nome.replace(/\s+/g, "-").toLowerCase()}.pdf`
-          doc.save(fileName)
+          pdf.save(fileName)
 
           // Restaurar botão
           downloadButton.textContent = originalText
           downloadButton.disabled = false
         } catch (error) {
           console.error("Erro ao gerar PDF:", error)
-          alert("Erro ao gerar o PDF. Verifique sua conexão com a internet e tente novamente.")
+          alert("Erro ao gerar o PDF. Tente novamente.")
 
           // Restaurar botão
           downloadButton.textContent = "Baixar Confirmação em PDF"
