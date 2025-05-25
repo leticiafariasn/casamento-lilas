@@ -202,3 +202,23 @@ window.addEventListener("scroll", function () {
     const header = document.querySelector("header");
     header.classList.toggle("scrolled-blur", window.scrollY > 10);
   });
+
+  document.addEventListener("DOMContentLoaded", () => {
+  const downloadButton = document.getElementById("download-pdf");
+
+  if (downloadButton) {
+    downloadButton.addEventListener("click", () => {
+      const element = document.getElementById("thank-you-message");
+
+      const opt = {
+        margin:       0.5,
+        filename:     'confirmacao-presenca.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2 },
+        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
+
+      html2pdf().set(opt).from(element).save();
+    });
+  }
+});
