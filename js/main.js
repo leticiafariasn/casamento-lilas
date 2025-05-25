@@ -93,21 +93,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Processar envio
       sendData()
-        .then(() => {
-          // Restaurar botão se necessário
-          if (submitButton) {
-            submitButton.innerHTML = "Confirmar Presença"
-            submitButton.disabled = false
-          }
+.then(() => {
+  // Restaurar botão se necessário
+  if (submitButton) {
+    submitButton.innerHTML = "Confirmar Presença";
+    submitButton.disabled = false;
+  }
 
-          // Fade out the form
-          rsvpForm.style.opacity = "0"
-          rsvpForm.style.transform = "translateY(20px)"
-
-          setTimeout(() => {
-            // Hide form and show thank you message
-            rsvpForm.style.display = "none"
-            thankYouMessage.innerHTML = `
+  // Preencher dinamicamente a mensagem de agradecimento com os dados do formulário
+  thankYouMessage.innerHTML = `
             <h3>Obrigado por confirmar sua presença,</h3>
             <p><h3>${formDataObj.nome}!</h3></p>
             <p><strong>Email:</strong> ${formDataObj.email}</p>
@@ -117,42 +111,43 @@ document.addEventListener("DOMContentLoaded", () => {
             <button id="download-pdf" class="btn-primary" style="margin-top: 20px;">
               Baixar Confirmação em PDF
             </button>
-            `;
+          `;
 
-            thankYouMessage.style.display = "block";
+  // Esconde o formulário com animação
+  rsvpForm.style.opacity = "0";
+  rsvpForm.style.transform = "translateY(20px)";
 
+  setTimeout(() => {
+    rsvpForm.style.display = "none";
+    thankYouMessage.style.display = "block";
+    void thankYouMessage.offsetWidth;
+    thankYouMessage.style.opacity = "1";
+  }, 500);
 
-            document.addEventListener("click", function (e) {
-              if (e.target && e.target.id === "download-pdf") {
-                const element = document.getElementById("thank-you-message");
+  // Adiciona o evento de clique para gerar o PDF
+  setTimeout(() => {
+    const btn = document.getElementById("download-pdf");
+    if (btn) {
+      btn.addEventListener("click", () => {
+        const element = document.getElementById("thank-you-message");
+        element.style.transition = "none";
+        element.style.display = "block";
+        element.style.opacity = "1";
+        element.style.transform = "none";
 
-                // Força a visibilidade total da mensagem
-                element.style.display = "block";
-                element.style.opacity = "1";
-                element.style.transform = "none";
+        const opt = {
+          margin: 0.5,
+          filename: `confirmacao-${formDataObj.nome.replace(/\\s+/g, "-").toLowerCase()}.pdf`,
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { scale: 2 },
+          jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+        };
 
-                // Remove temporariamente a animação de transição para evitar falhas na renderização
-                element.style.transition = "none";
-
-                // Garante que a renderização ocorreu
-                setTimeout(() => {
-                  const opt = {
-                    margin: 0.5,
-                    filename: 'confirmacao-presenca.pdf',
-                    image: { type: 'jpeg', quality: 0.98 },
-                    html2canvas: { scale: 2 },
-                    jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-                  };
-
-                  html2pdf().set(opt).from(element).save();
-
-                  // Restaura o CSS depois da geração
-                  setTimeout(() => {
-                    element.style.transition = ""; // reativa a transição
-                  }, 100);
-                }, 300); // dá tempo para o DOM atualizar
-              }
-            });
+        html2pdf().set(opt).from(element).save();
+      });
+    }
+  }, 300);
+})
 
 
             // Trigger reflow to ensure transition works
