@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   })
 
-// RSVP form handling
+  // RSVP form handling
   const rsvpForm = document.getElementById("rsvp-form")
   const thankYouMessage = document.getElementById("thank-you-message")
   const submitButton = document.getElementById("submit-button")
@@ -107,7 +107,19 @@ document.addEventListener("DOMContentLoaded", () => {
           setTimeout(() => {
             // Hide form and show thank you message
             rsvpForm.style.display = "none"
-            thankYouMessage.style.display = "block"
+            thankYouMessage.innerHTML = `
+            <h3>Obrigado por confirmar sua presença, ${formDataObj.nome}!</h3>
+            <p><strong>Email:</strong> ${formDataObj.email}</p>
+            <p><strong>Telefone:</strong> ${formDataObj.telefone}</p>
+            <p><strong>Acompanhantes:</strong> ${formDataObj.acompanhantes}</p>
+            ${formDataObj.mensagem ? `<p><strong>Mensagem:</strong> ${formDataObj.mensagem}</p>` : ""}
+            <button id="download-pdf" class="btn-primary" style="margin-top: 20px;">
+              Baixar Confirmação em PDF
+            </button>
+            `;
+
+            thankYouMessage.style.display = "block";
+
 
             // Trigger reflow to ensure transition works
             void thankYouMessage.offsetWidth
@@ -199,11 +211,11 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 window.addEventListener("scroll", function () {
-    const header = document.querySelector("header");
-    header.classList.toggle("scrolled-blur", window.scrollY > 10);
-  });
+  const header = document.querySelector("header");
+  header.classList.toggle("scrolled-blur", window.scrollY > 10);
+});
 
-  document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
   const downloadButton = document.getElementById("download-pdf");
 
   if (downloadButton) {
@@ -211,11 +223,11 @@ window.addEventListener("scroll", function () {
       const element = document.getElementById("thank-you-message");
 
       const opt = {
-        margin:       0.5,
-        filename:     'confirmacao-presenca.pdf',
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2 },
-        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+        margin: 0.5,
+        filename: 'confirmacao-presenca.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
       };
 
       html2pdf().set(opt).from(element).save();
