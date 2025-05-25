@@ -13,10 +13,6 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap"
         rel="stylesheet">
-    
-    <!-- Bibliotecas para PDF mais estáveis -->
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 
 <body>
@@ -177,11 +173,45 @@
         </div>
     </footer>
 
-    <div id="pdf-content" style="position: absolute; left: -9999px; top: 0; background: white; width: 800px; padding: 40px; font-family: 'Poppins', sans-serif;">
-    </div>
-
     <script src="js/countdown.js"></script>
     <script src="js/main.js"></script>
+    
+    <!-- Carregar jsPDF dinamicamente quando necessário -->
+    <script>
+        window.loadJsPDF = function() {
+            return new Promise((resolve, reject) => {
+                if (window.jsPDF) {
+                    resolve(window.jsPDF);
+                    return;
+                }
+                
+                const script = document.createElement('script');
+                script.src = 'https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js';
+                script.onload = () => {
+                    if (window.jsPDF) {
+                        resolve(window.jsPDF);
+                    } else {
+                        reject(new Error('jsPDF não carregou corretamente'));
+                    }
+                };
+                script.onerror = () => {
+                    // Tentar CDN alternativa
+                    const script2 = document.createElement('script');
+                    script2.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+                    script2.onload = () => {
+                        if (window.jsPDF) {
+                            resolve(window.jsPDF);
+                        } else {
+                            reject(new Error('jsPDF não carregou corretamente'));
+                        }
+                    };
+                    script2.onerror = () => reject(new Error('Falha ao carregar jsPDF'));
+                    document.head.appendChild(script2);
+                };
+                document.head.appendChild(script);
+            });
+        };
+    </script>
 </body>
 
 </html>
