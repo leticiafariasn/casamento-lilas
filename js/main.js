@@ -122,19 +122,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             document.getElementById("download-pdf").addEventListener("click", () => {
-              const element = document.getElementById("thank-you-message");
+              const element = document.getElementById("thank-you-message")
+
+              // Garante que está visível (caso tenha alguma transição)
+              element.style.opacity = "1"
+              element.style.display = "block"
+              element.style.transform = "none" // remove animações
 
               const opt = {
                 margin: 0.5,
                 filename: `confirmacao-${formDataObj.nome.replace(/\s+/g, "-").toLowerCase()}.pdf`,
                 image: { type: 'jpeg', quality: 0.98 },
                 html2canvas: { scale: 2 },
-                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-              };
+                jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+              }
 
-              html2pdf().set(opt).from(element).save();
-            });
-
+              // Garante que o HTML foi renderizado completamente antes de capturar
+              setTimeout(() => {
+                html2pdf().set(opt).from(element).save()
+              }, 200)
+            })
 
             // Trigger reflow to ensure transition works
             void thankYouMessage.offsetWidth
