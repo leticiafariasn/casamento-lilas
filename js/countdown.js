@@ -1,5 +1,6 @@
 const weddingDate = new Date("July 20, 2025 16:00:00").getTime()
 
+
 // Update the countdown every second
 const countdown = setInterval(() => {
   // Get today's date and time
