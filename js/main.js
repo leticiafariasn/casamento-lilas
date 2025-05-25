@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Hide form and show thank you message
             rsvpForm.style.display = "none"
             thankYouMessage.innerHTML = `
-            <h3>Obrigado por confirmar sua presença, ${formDataObj.nome}!</h3>
+            <h3>Obrigado por confirmar sua presença, <p>${formDataObj.nome}!</h3></p>
             <p><strong>Email:</strong> ${formDataObj.email}</p>
             <p><strong>Telefone:</strong> ${formDataObj.telefone}</p>
             <p><strong>Acompanhantes:</strong> ${formDataObj.acompanhantes}</p>
