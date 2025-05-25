@@ -104,28 +104,31 @@ document.addEventListener("DOMContentLoaded", () => {
             thankYouMessage.style.opacity = "1"
           }, 500)
 
-          setTimeout(() => {
-            const btn = document.getElementById("download-pdf");
-            if (btn) {
-              btn.addEventListener("click", () => {
-                const element = document.getElementById("thank-you-message");
-                element.style.transition = "none";
-                element.style.display = "block";
-                element.style.opacity = "1";
-                element.style.transform = "none";
+setTimeout(() => {
+  const btn = document.getElementById("download-pdf");
+  if (btn) {
+    btn.addEventListener("click", () => {
+      const elementOriginal = document.getElementById("thank-you-message");
+      const elementClone = elementOriginal.cloneNode(true);
 
-                const opt = {
-                  margin: 0.5,
-                  filename: `confirmacao-${formDataObj.nome.replace(/\s+/g, "-").toLowerCase()}.pdf`,
-                  image: { type: 'jpeg', quality: 0.98 },
-                  html2canvas: { scale: 2 },
-                  jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-                };
+      // Injeta o conteúdo clonado no container invisível
+      const pdfTarget = document.getElementById("pdf-content");
+      pdfTarget.innerHTML = ""; // limpa antes
+      pdfTarget.appendChild(elementClone);
 
-                html2pdf().set(opt).from(element).save();
-              });
-            }
-          }, 300)
+      const opt = {
+        margin: 0.5,
+        filename: `confirmacao-${formDataObj.nome.replace(/\s+/g, "-").toLowerCase()}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+      };
+
+      html2pdf().set(opt).from(pdfTarget).save();
+    });
+  }
+}, 300);
+
         })
         .catch((error) => {
           console.error("Erro ao enviar o formulário:", error)
