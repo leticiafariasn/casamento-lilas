@@ -121,27 +121,38 @@ document.addEventListener("DOMContentLoaded", () => {
             thankYouMessage.style.display = "block";
 
 
-            document.getElementById("download-pdf").addEventListener("click", () => {
-              const element = document.getElementById("thank-you-message")
+            document.addEventListener("click", function (e) {
+              if (e.target && e.target.id === "download-pdf") {
+                const element = document.getElementById("thank-you-message");
 
-              // Garante que está visível (caso tenha alguma transição)
-              element.style.opacity = "1"
-              element.style.display = "block"
-              element.style.transform = "none" // remove animações
+                // Força a visibilidade total da mensagem
+                element.style.display = "block";
+                element.style.opacity = "1";
+                element.style.transform = "none";
 
-              const opt = {
-                margin: 0.5,
-                filename: `confirmacao-${formDataObj.nome.replace(/\s+/g, "-").toLowerCase()}.pdf`,
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2 },
-                jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+                // Remove temporariamente a animação de transição para evitar falhas na renderização
+                element.style.transition = "none";
+
+                // Garante que a renderização ocorreu
+                setTimeout(() => {
+                  const opt = {
+                    margin: 0.5,
+                    filename: 'confirmacao-presenca.pdf',
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2 },
+                    jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+                  };
+
+                  html2pdf().set(opt).from(element).save();
+
+                  // Restaura o CSS depois da geração
+                  setTimeout(() => {
+                    element.style.transition = ""; // reativa a transição
+                  }, 100);
+                }, 300); // dá tempo para o DOM atualizar
               }
+            });
 
-              // Garante que o HTML foi renderizado completamente antes de capturar
-              setTimeout(() => {
-                html2pdf().set(opt).from(element).save()
-              }, 200)
-            })
 
             // Trigger reflow to ensure transition works
             void thankYouMessage.offsetWidth
