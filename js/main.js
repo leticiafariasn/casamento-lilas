@@ -1,4 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // Aguardar um pouco para garantir que as bibliotecas carreguem
+  setTimeout(() => {
+    console.log("Verificando jsPDF:", typeof window.jsPDF)
+  }, 1000)
+
   // Header scroll effect
   const header = document.querySelector("header")
   window.addEventListener("scroll", () => {
@@ -52,170 +57,217 @@ document.addEventListener("DOMContentLoaded", () => {
   const thankYouMessage = document.getElementById("thank-you-message")
   const submitButton = document.getElementById("submit-button")
 
-  // Configurar o botão de download PDF usando jsPDF
+  // Função para criar PDF simples sem bibliotecas externas
+  const createSimplePDF = (formDataObj) => {
+    // Criar conteúdo do PDF como texto
+    const pdfContent = `
+CONFIRMAÇÃO DE PRESENÇA
+Lívia & Mateus
+30 de Outubro de 2025
+
+═══════════════════════════════════════
+
+DADOS DO CONVIDADO:
+
+Nome: ${formDataObj.nome}
+Email: ${formDataObj.email}
+Telefone: ${formDataObj.telefone}
+Acompanhantes: ${formDataObj.acompanhantes}
+${formDataObj.mensagem ? `Mensagem: ${formDataObj.mensagem}` : ""}
+
+═══════════════════════════════════════
+
+INFORMAÇÕES DO EVENTO:
+
+Data: 30 de Outubro de 2025
+Horário: 16:00
+Local: Espaço Jardim das Flores
+Endereço: Rua das Flores, 123 - Jardim Primavera
+
+═══════════════════════════════════════
+
+Agradecemos por confirmar sua presença!
+Estamos ansiosos para celebrar este momento especial com você.
+    `
+
+    // Criar blob e fazer download
+    const blob = new Blob([pdfContent], { type: "text/plain;charset=utf-8" })
+    const url = window.URL.createObjectURL(blob)
+    const a = document.createElement("a")
+    a.href = url
+    a.download = `confirmacao-presenca-${formDataObj.nome.replace(/\s+/g, "-").toLowerCase()}.txt`
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    window.URL.revokeObjectURL(url)
+  }
+
+  // Configurar o botão de download PDF
   const setupPdfDownload = (formDataObj) => {
     const downloadButton = document.getElementById("download-pdf")
     if (downloadButton) {
       downloadButton.addEventListener("click", () => {
         try {
           // Verificar se jsPDF está disponível
-          if (typeof window.jsPDF === "undefined") {
-            alert("Erro: Biblioteca de PDF não carregada.")
-            return
-          }
+          if (typeof window.jsPDF !== "undefined") {
+            // Usar jsPDF se disponível
+            const { jsPDF } = window.jsPDF
+            const doc = new jsPDF()
 
-          // Criar nova instância do jsPDF
-          const { jsPDF } = window.jsPDF
-          const doc = new jsPDF()
+            // Configurar cores
+            const primaryColor = [196, 130, 133] // #c28285
+            const textColor = [74, 59, 60] // #4a3b3c
+            const lightColor = [138, 114, 117] // #8a7275
 
-          // Configurar cores
-          const primaryColor = [196, 130, 133] // #c28285
-          const textColor = [74, 59, 60] // #4a3b3c
-          const lightColor = [138, 114, 117] // #8a7275
-
-          // Título principal
-          doc.setFontSize(24)
-          doc.setTextColor(...primaryColor)
-          doc.setFont("helvetica", "bold")
-          doc.text("Lívia & Mateus", 105, 30, { align: "center" })
-
-          // Data do casamento
-          doc.setFontSize(14)
-          doc.setTextColor(...lightColor)
-          doc.setFont("helvetica", "italic")
-          doc.text("30 de Outubro de 2025", 105, 45, { align: "center" })
-
-          // Linha decorativa
-          doc.setDrawColor(...primaryColor)
-          doc.setLineWidth(0.5)
-          doc.line(50, 55, 160, 55)
-
-          // Título da seção
-          doc.setFontSize(18)
-          doc.setTextColor(...primaryColor)
-          doc.setFont("helvetica", "bold")
-          doc.text("Confirmação de Presença", 105, 75, { align: "center" })
-
-          // Caixa de informações
-          doc.setDrawColor(...primaryColor)
-          doc.setLineWidth(1)
-          doc.rect(20, 85, 170, 80)
-
-          // Informações do convidado
-          doc.setFontSize(12)
-          doc.setTextColor(...textColor)
-          doc.setFont("helvetica", "normal")
-
-          let yPosition = 100
-          const lineHeight = 12
-
-          // Nome
-          doc.setFont("helvetica", "bold")
-          doc.text("Nome:", 30, yPosition)
-          doc.setFont("helvetica", "normal")
-          doc.text(formDataObj.nome, 55, yPosition)
-
-          yPosition += lineHeight
-
-          // Email
-          doc.setFont("helvetica", "bold")
-          doc.text("Email:", 30, yPosition)
-          doc.setFont("helvetica", "normal")
-          doc.text(formDataObj.email, 55, yPosition)
-
-          yPosition += lineHeight
-
-          // Telefone
-          doc.setFont("helvetica", "bold")
-          doc.text("Telefone:", 30, yPosition)
-          doc.setFont("helvetica", "normal")
-          doc.text(formDataObj.telefone, 65, yPosition)
-
-          yPosition += lineHeight
-
-          // Acompanhantes
-          doc.setFont("helvetica", "bold")
-          doc.text("Acompanhantes:", 30, yPosition)
-          doc.setFont("helvetica", "normal")
-          doc.text(formDataObj.acompanhantes, 85, yPosition)
-
-          yPosition += lineHeight
-
-          // Mensagem (se houver)
-          if (formDataObj.mensagem && formDataObj.mensagem.trim() !== "") {
-            yPosition += 5
+            // Título principal
+            doc.setFontSize(24)
+            doc.setTextColor(...primaryColor)
             doc.setFont("helvetica", "bold")
-            doc.text("Mensagem:", 30, yPosition)
-            yPosition += lineHeight
+            doc.text("Lívia & Mateus", 105, 30, { align: "center" })
+
+            // Data do casamento
+            doc.setFontSize(14)
+            doc.setTextColor(...lightColor)
+            doc.setFont("helvetica", "italic")
+            doc.text("30 de Outubro de 2025", 105, 45, { align: "center" })
+
+            // Linha decorativa
+            doc.setDrawColor(...primaryColor)
+            doc.setLineWidth(0.5)
+            doc.line(50, 55, 160, 55)
+
+            // Título da seção
+            doc.setFontSize(18)
+            doc.setTextColor(...primaryColor)
+            doc.setFont("helvetica", "bold")
+            doc.text("Confirmação de Presença", 105, 75, { align: "center" })
+
+            // Caixa de informações
+            doc.setDrawColor(...primaryColor)
+            doc.setLineWidth(1)
+            doc.rect(20, 85, 170, 80)
+
+            // Informações do convidado
+            doc.setFontSize(12)
+            doc.setTextColor(...textColor)
             doc.setFont("helvetica", "normal")
 
-            // Quebrar texto longo em múltiplas linhas
-            const splitMessage = doc.splitTextToSize(formDataObj.mensagem, 150)
-            doc.text(splitMessage, 30, yPosition)
+            let yPosition = 100
+            const lineHeight = 12
+
+            // Nome
+            doc.setFont("helvetica", "bold")
+            doc.text("Nome:", 30, yPosition)
+            doc.setFont("helvetica", "normal")
+            doc.text(formDataObj.nome, 55, yPosition)
+
+            yPosition += lineHeight
+
+            // Email
+            doc.setFont("helvetica", "bold")
+            doc.text("Email:", 30, yPosition)
+            doc.setFont("helvetica", "normal")
+            doc.text(formDataObj.email, 55, yPosition)
+
+            yPosition += lineHeight
+
+            // Telefone
+            doc.setFont("helvetica", "bold")
+            doc.text("Telefone:", 30, yPosition)
+            doc.setFont("helvetica", "normal")
+            doc.text(formDataObj.telefone, 65, yPosition)
+
+            yPosition += lineHeight
+
+            // Acompanhantes
+            doc.setFont("helvetica", "bold")
+            doc.text("Acompanhantes:", 30, yPosition)
+            doc.setFont("helvetica", "normal")
+            doc.text(formDataObj.acompanhantes, 85, yPosition)
+
+            yPosition += lineHeight
+
+            // Mensagem (se houver)
+            if (formDataObj.mensagem && formDataObj.mensagem.trim() !== "") {
+              yPosition += 5
+              doc.setFont("helvetica", "bold")
+              doc.text("Mensagem:", 30, yPosition)
+              yPosition += lineHeight
+              doc.setFont("helvetica", "normal")
+
+              // Quebrar texto longo em múltiplas linhas
+              const splitMessage = doc.splitTextToSize(formDataObj.mensagem, 150)
+              doc.text(splitMessage, 30, yPosition)
+            }
+
+            // Informações do evento
+            yPosition = 185
+            doc.setFillColor(245, 214, 217) // #f5d6d9
+            doc.rect(20, yPosition, 170, 60, "F")
+
+            yPosition += 15
+            doc.setFontSize(14)
+            doc.setTextColor(...primaryColor)
+            doc.setFont("helvetica", "bold")
+            doc.text("Informações do Evento", 105, yPosition, { align: "center" })
+
+            yPosition += 15
+            doc.setFontSize(11)
+            doc.setTextColor(...textColor)
+            doc.setFont("helvetica", "normal")
+
+            // Data
+            doc.setFont("helvetica", "bold")
+            doc.text("Data:", 30, yPosition)
+            doc.setFont("helvetica", "normal")
+            doc.text("30 de Outubro de 2025", 55, yPosition)
+
+            yPosition += 10
+
+            // Horário
+            doc.setFont("helvetica", "bold")
+            doc.text("Horário:", 30, yPosition)
+            doc.setFont("helvetica", "normal")
+            doc.text("16:00", 60, yPosition)
+
+            yPosition += 10
+
+            // Local
+            doc.setFont("helvetica", "bold")
+            doc.text("Local:", 30, yPosition)
+            doc.setFont("helvetica", "normal")
+            doc.text("Espaço Jardim das Flores", 55, yPosition)
+
+            yPosition += 10
+
+            // Endereço
+            doc.setFont("helvetica", "bold")
+            doc.text("Endereço:", 30, yPosition)
+            doc.setFont("helvetica", "normal")
+            doc.text("Rua das Flores, 123 - Jardim Primavera", 70, yPosition)
+
+            // Mensagem final
+            yPosition += 25
+            doc.setFontSize(10)
+            doc.setTextColor(...lightColor)
+            doc.setFont("helvetica", "italic")
+            doc.text("Agradecemos por confirmar sua presença!", 105, yPosition, { align: "center" })
+            doc.text("Estamos ansiosos para celebrar este momento especial com você.", 105, yPosition + 8, {
+              align: "center",
+            })
+
+            // Salvar o PDF
+            const fileName = `confirmacao-presenca-${formDataObj.nome.replace(/\s+/g, "-").toLowerCase()}.pdf`
+            doc.save(fileName)
+          } else {
+            // Fallback: criar arquivo de texto simples
+            console.log("jsPDF não disponível, usando fallback")
+            createSimplePDF(formDataObj)
           }
-
-          // Informações do evento
-          yPosition = 185
-          doc.setFillColor(245, 214, 217) // #f5d6d9
-          doc.rect(20, yPosition, 170, 60, "F")
-
-          yPosition += 15
-          doc.setFontSize(14)
-          doc.setTextColor(...primaryColor)
-          doc.setFont("helvetica", "bold")
-          doc.text("Informações do Evento", 105, yPosition, { align: "center" })
-
-          yPosition += 15
-          doc.setFontSize(11)
-          doc.setTextColor(...textColor)
-          doc.setFont("helvetica", "normal")
-
-          // Data
-          doc.setFont("helvetica", "bold")
-          doc.text("Data:", 30, yPosition)
-          doc.setFont("helvetica", "normal")
-          doc.text("30 de Outubro de 2025", 55, yPosition)
-
-          yPosition += 10
-
-          // Horário
-          doc.setFont("helvetica", "bold")
-          doc.text("Horário:", 30, yPosition)
-          doc.setFont("helvetica", "normal")
-          doc.text("16:00", 60, yPosition)
-
-          yPosition += 10
-
-          // Local
-          doc.setFont("helvetica", "bold")
-          doc.text("Local:", 30, yPosition)
-          doc.setFont("helvetica", "normal")
-          doc.text("Espaço Jardim das Flores", 55, yPosition)
-
-          yPosition += 10
-
-          // Endereço
-          doc.setFont("helvetica", "bold")
-          doc.text("Endereço:", 30, yPosition)
-          doc.setFont("helvetica", "normal")
-          doc.text("Rua das Flores, 123 - Jardim Primavera", 70, yPosition)
-
-          // Mensagem final
-          yPosition += 25
-          doc.setFontSize(10)
-          doc.setTextColor(...lightColor)
-          doc.setFont("helvetica", "italic")
-          doc.text("Agradecemos por confirmar sua presença!", 105, yPosition, { align: "center" })
-          doc.text("Estamos ansiosos para celebrar este momento especial com você.", 105, yPosition + 8, {
-            align: "center",
-          })
-
-          // Salvar o PDF
-          const fileName = `confirmacao-presenca-${formDataObj.nome.replace(/\s+/g, "-").toLowerCase()}.pdf`
-          doc.save(fileName)
         } catch (error) {
           console.error("Erro ao gerar PDF:", error)
-          alert("Erro ao gerar o PDF. Tente novamente.")
+          // Fallback em caso de erro
+          createSimplePDF(formDataObj)
         }
       })
     }
@@ -284,7 +336,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <p><strong>Acompanhantes:</strong> ${formDataObj.acompanhantes}</p>
             ${formDataObj.mensagem ? `<p><strong>Mensagem:</strong> ${formDataObj.mensagem}</p>` : ""}
             <button id="download-pdf" class="btn-primary" style="margin-top: 20px;">
-              Baixar Confirmação em PDF
+              Baixar Confirmação
             </button>
             `
 
