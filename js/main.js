@@ -227,19 +227,23 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("scroll", checkReveal)
 
   // Add placeholder image for hero background if needed
-  const hero = document.querySelector(".hero")
-  if (hero) {
-    const img = new Image()
-    img.onload = () => {
-      // Image loaded successfully
-    }
-    img.onerror = () => {
-      // If image fails to load, use a fallback color
-      hero.style.backgroundImage = "none"
-      hero.style.backgroundColor = "#e8b4b8"
-    }
-    img.src = getComputedStyle(hero).backgroundImage.replace(/url$$['"]?(.*?)['"]?$$/gi, "$1")
+const hero = document.querySelector(".hero")
+if (hero) {
+  const img = new Image()
+  img.onload = () => {}
+  img.onerror = () => {
+    hero.style.backgroundImage = "none"
+    hero.style.backgroundColor = "#e8b4b8"
   }
+
+  // Corrige a extração da URL da imagem de fundo
+  const bg = getComputedStyle(hero).backgroundImage
+  const match = bg.match(/url\\(["']?(.*?)["']?\\)/)
+  if (match && match[1]) {
+    img.src = match[1]
+  }
+}
+
 })
 
 window.addEventListener("scroll", () => {
