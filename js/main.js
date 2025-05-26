@@ -303,8 +303,3 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   if (sections.length > 0) { checkReveal(); window.addEventListener("scroll", checkReveal); }
 });
-
-window.addEventListener("scroll", () => {
-  const header = document.querySelector("header")
-  header.classList.toggle("scrolled-blur", window.scrollY > 10)
-})
