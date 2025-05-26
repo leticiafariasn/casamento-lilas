@@ -863,9 +863,8 @@ button .loading {
 
 /* Ajustar cor do texto principal para a mesma do nome Julia & Pedro */
 .hero-content h2,
-.hero-content p,
-.hero-content a {
-  color: #c28285; /* cor herdada do título */
+.hero-content p {
+  color: var(--primary-color); /* cor herdada do título */
 }
 
 /* Tornar vídeo mais visível reduzindo opacidade da overlay */
