@@ -1,9 +1,6 @@
-const weddingDate = new Date("July 20, 2025 16:00:00").getTime()
-// Update the countdown every second
-const countdown = setInterval(() => {
-  // Get today's date and time
-  const now = new Date().getTime()
 
+<<<<<<< HEAD
+=======
   if (distance < 0) {
     clearInterval(countdownInterval);
     const countdownTimerElement = document.getElementById("countdown-timer");
@@ -12,3 +9,4 @@ const countdown = setInterval(() => {
     }
   }
 }, 1000);
+>>>>>>> 4960023f8c75c2bdb1f5d8ee6858b498973676c2
