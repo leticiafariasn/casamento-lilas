@@ -239,7 +239,7 @@ document.addEventListener("DOMContentLoaded", () => {
       doc.text("20 de Julho de 2025", centerX, footerY + 6, { align: "center" });
 
       const safeGuestName = String(formDataObj.nome || "Convidado").replace(/[^\w\sÀ-ú]/gi, '').replace(/\s+/g, "_");
-      const fileName = `Convite_Casamento_Julia_Pedro_${safeGuestName}.pdf`;
+      const fileName = `Confirmação_Casamento_Julia_Pedro_${safeGuestName}.pdf`;
       doc.save(fileName);
 
       return true;
