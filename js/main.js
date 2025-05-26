@@ -95,6 +95,11 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       // Envio para SheetMonkey
+
+      // Mostrar mensagem de agradecimento e esconder formulário
+      form.style.display = "none";
+      const thankYou = document.getElementById("thank-you-message");
+      if (thankYou) thankYou.style.display = "block";
       try {
         await fetch("https://api.sheetmonkey.io/form/ri6NRsJ9mYsHBm1YZvXR5y", {
           method: "POST",
