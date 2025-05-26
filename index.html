@@ -5,14 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Julia & Pedro - Nosso Casamento</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/animations.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="animations.css">
 </head>
 
 <body>
@@ -20,15 +20,11 @@
         <div class="header-content">
             <h1>Julia & Pedro</h1>
             <p class="wedding-date">20 de julho de 2025</p>
-
             <div class="hamburger-menu">
                 <div class="hamburger-icon" id="hamburger-icon">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                    <span></span><span></span><span></span>
                 </div>
             </div>
-
             <nav id="nav-menu">
                 <ul>
                     <li><a href="#home">Home</a></li>
@@ -40,7 +36,6 @@
     </header>
 
     <section id="home" class="hero">
-        <div class="hero-overlay"></div>
         <div class="hero-content">
             <h2>Vamos nos casar!</h2>
             <p>Gostaríamos de compartilhar este momento especial com você</p>
@@ -53,23 +48,12 @@
             <h2 class="countdown-title">Contagem Regressiva</h2>
             <div class="countdown-divider"></div>
             <p class="countdown-intro">Faltam para o nosso grande dia:</p>
-
-            <div class="countdown" id="countdown">
-                <div class="countdown-item">
-                    <span id="days">00</span>
-                    <span class="countdown-label">Dias</span>
+            <div class="countdown" id="countdown-timer">
+                <div class="countdown-item"><span id="days">00</span><span class="countdown-label">Dias</span></div>
+                <div class="countdown-item"><span id="hours">00</span><span class="countdown-label">Horas</span></div>
+                <div class="countdown-item"><span id="minutes">00</span><span class="countdown-label">Minutos</span>
                 </div>
-                <div class="countdown-item">
-                    <span id="hours">00</span>
-                    <span class="countdown-label">Horas</span>
-                </div>
-                <div class="countdown-item">
-                    <span id="minutes">00</span>
-                    <span class="countdown-label">Minutos</span>
-                </div>
-                <div class="countdown-item">
-                    <span id="seconds">00</span>
-                    <span class="countdown-label">Segundos</span>
+                <div class="countdown-item"><span id="seconds">00</span><span class="countdown-label">Segundos</span>
                 </div>
             </div>
         </div>
@@ -78,85 +62,58 @@
     <section id="confirmar" class="rsvp">
         <div class="container">
             <h2 class="section-title">Confirme sua Presença</h2>
-
             <div class="rsvp-container">
                 <div class="rsvp-form-container">
                     <form id="rsvp-form" class="rsvp-form">
-                        <div class="form-group">
-                            <label for="name">Nome Completo</label>
-                            <input type="text" id="name" name="nome" required>
+                        <div class="form-group"><label for="name">Nome Completo</label><input type="text" id="name"
+                                name="nome" required>
                         </div>
-
-                        <div class="form-group">
-                            <label for="email">E-mail</label>
-                            <input type="email" id="email" name="email" required>
+                        <div class="form-group"><label for="email">E-mail</label><input type="email" id="email"
+                                name="email" required>
                         </div>
-
-                        <div class="form-group">
-                            <label for="phone">Telefone</label>
-                            <input type="tel" id="phone" name="telefone" required>
+                        <div class="form-group"><label for="phone">Telefone</label><input type="tel" id="phone"
+                                name="telefone" required>
                         </div>
-
                         <div class="form-group">
-                            <label for="guests">Número de acompanhantes</label>
-                            <select id="guests" name="acompanhantes">
+                            <label for="guests">Número de acompanhantes</label><select id="guests" name="acompanhantes">
                                 <option value="0">Apenas eu</option>
                                 <option value="1">1 acompanhante</option>
                                 <option value="2">2 acompanhantes</option>
                                 <option value="3">3 acompanhantes</option>
                             </select>
                         </div>
-
                         <div class="form-group">
-                            <label for="message">Mensagem para os noivos (opcional)</label>
-                            <textarea id="message" name="mensagem" rows="4"></textarea>
+                            <label for="message">Mensagem para os noivos (opcional)</label><textarea id="message"
+                                name="mensagem" rows="4"></textarea>
                         </div>
-
-                        <button type="submit" class="btn-primary">Confirmar Presença</button>
+                        <button type="submit" id="submit-button" class="btn-primary">Confirmar Presença</button>
                     </form>
-
-                    <div id="thank-you-message" class="thank-you-message">
-                        <h3>Obrigado por confirmar sua presença!</h3>
-                        <p>Estamos ansiosos para celebrar com você.</p>
-                        <button id="download-pdf" class="btn-primary" style="margin-top: 20px;">
-                            Baixar Confirmação em PDF
-                        </button>
-                    </div>
+                    <div id="thank-you-message" class="thank-you-message"></div>
                 </div>
-
                 <div class="info-card">
                     <div class="info-section date-section">
-                        <div class="info-title">
-                            <span class="material-symbols-outlined">
-                                calendar_month
-                            </span>
+                        <div class="info-title"><span class="material-symbols-outlined">calendar_month</span>
                             <h3>Data e Hora</h3>
                         </div>
                         <p class="info-primary">20 de Julho de 2025</p>
                         <p class="info-secondary">Cerimônia às 16:00</p>
                     </div>
-
                     <div class="info-section location-section">
-                        <div class="info-title">
-                            <span class="material-symbols-outlined">
-                                location_on
-                            </span>
+                        <div class="info-title"><span class="material-symbols-outlined">location_on</span>
                             <h3>Local da Cerimônia</h3>
                         </div>
                         <p class="info-primary">Espaço Jardim das Flores</p>
                         <p class="info-secondary">Rua das Flores, 123 - Jardim Primavera</p>
                     </div>
-
                     <div class="map-section">
                         <iframe
-                            src="https://www.google.com/maps?q=Av.+Santos+Dumont,+1510+-+Aldeota,+Fortaleza,+Brazil+60115170&hl=pt-BR&output=embed"
-                            width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3981.306321996998!2d-38.52595768524086!3d-3.742196997273758!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7c7491de5330c0f%3A0x250610777842c204!2sPra%C3%A7a%20do%20Ferreira!5e0!3m2!1spt-BR!2sbr!4v1620000000000!5m2!1spt-BR!2sbr"
+                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
                             referrerpolicy="no-referrer-when-downgrade">
                         </iframe>
                         <div class="map-overlay">
-                            <a href="https://www.google.com/maps?q=Av.+Santos+Dumont,+1510+-+Aldeota,+Fortaleza,+Brazil+60115170"
-                                target="_blank" class="btn-map">
-                                <i class="ph ph-map-pin"></i> Ver no mapa
+                            <a href="https://maps.app.goo.gl/YOUR_Maps_SHARE_LINK" target="_blank" class="btn-map">
+                                <span class="material-symbols-outlined">map</span> Ver no mapa
                             </a>
                         </div>
                     </div>
