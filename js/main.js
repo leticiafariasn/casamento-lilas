@@ -71,7 +71,47 @@ document.addEventListener("DOMContentLoaded", () => {
         console.warn("Elemento para scroll suave não encontrado:", targetId, error);
       }
     });
-  });
+  
+  // Manipulação do formulário de confirmação com envio para SheetMonkey
+  const form = document.getElementById("rsvp-form");
+  if (form) {
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      const formDataObj = {
+        nome: formData.get("nome"),
+        email: formData.get("email"),
+        telefone: formData.get("telefone"),
+        acompanhantes: formData.get("acompanhantes"),
+        mensagem: formData.get("mensagem")
+      };
+
+      // Geração do PDF
+      if (typeof generatePDF === "function") {
+        await generatePDF(formDataObj);
+      } else {
+        alert("Função de geração de PDF não encontrada.");
+      }
+
+      // Envio para SheetMonkey
+      try {
+        await fetch("https://api.sheetmonkey.io/form/ri6NRsJ9mYsHBm1YZvXR5y", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(formDataObj)
+        });
+        console.log("Dados enviados com sucesso para a planilha.");
+      } catch (error) {
+        console.error("Erro ao enviar para a planilha:", error);
+        alert("Erro ao enviar os dados para a planilha.");
+      }
+    });
+  }
+
+});
 
   function loadJsPDF() {
     return new Promise((resolve, reject) => {
