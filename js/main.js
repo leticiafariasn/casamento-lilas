@@ -199,12 +199,12 @@ document.addEventListener("DOMContentLoaded", () => {
       infoY += 10;
 
       writeField(leftX, infoY, "Telefone:", formDataObj.telefone || "N/A");
-      writeField(rightX, infoY, "Local:", "Espaço Jardim das Flores");
+      writeField(rightX, infoY, "Local:", "Inoa - Chácara de Inoa");
       infoY += 10;
 
       const acompText = formDataObj.acompanhantes === "0" ? "Apenas eu" : `${formDataObj.acompanhantes || '0'} pessoa(s)`;
       writeField(leftX, infoY, "Acompanhantes:", acompText);
-      writeField(rightX, infoY, "Endereço:", "Rua das Flores, 123 - Jardim Primavera");
+      writeField(rightX, infoY, "Endereço:", "Avenida Carlos Marighella - Chácaras de Inoã");
 
       infoY += 15;
 
