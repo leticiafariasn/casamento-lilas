@@ -1,4 +1,4 @@
-const weddingDate = new Date("July 20, 2025 16:00:00").getTime();
+const weddingDate = new Date("July 20, 2025 19:00:00").getTime();
 const countdownInterval = setInterval(() => {
   const now = new Date().getTime();
   const distance = weddingDate - now;
@@ -195,7 +195,7 @@ document.addEventListener("DOMContentLoaded", () => {
       infoY += 10;
 
       writeField(leftX, infoY, "Email:", formDataObj.email || "N/A");
-      writeField(rightX, infoY, "Horário:", "16h");
+      writeField(rightX, infoY, "Horário:", "19h");
       infoY += 10;
 
       writeField(leftX, infoY, "Telefone:", formDataObj.telefone || "N/A");
