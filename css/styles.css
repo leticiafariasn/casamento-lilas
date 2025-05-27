@@ -829,7 +829,6 @@ button .loading {
 
 .hero {
   position: relative;
-  height: 85vh;
   overflow: hidden;
 }
 
@@ -841,7 +840,6 @@ button .loading {
   height: 100%;
   object-fit: cover;
   z-index: 0;
-  opacity: 0.8;
 }
 
 .hero-overlay {
@@ -850,7 +848,7 @@ button .loading {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(245, 240, 235, 0.6);
+  background: rgba(0, 0, 0, 0.4); /* preto com 40% de transparência */
   z-index: 1;
 }
 
