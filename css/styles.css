@@ -680,7 +680,6 @@ footer {
   }
 }
 
-/* Fade In Animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -694,7 +693,7 @@ footer {
   animation: fadeIn 1s ease-in-out;
 }
 
-/* Slide Up Animation */
+
 @keyframes slideUp {
   from {
     transform: translateY(50px);
@@ -710,7 +709,6 @@ footer {
   animation: slideUp 0.8s ease-out;
 }
 
-/* Pulse Animation */
 @keyframes pulse {
   0% {
     transform: scale(1);
@@ -727,7 +725,7 @@ footer {
   animation: pulse 2s infinite;
 }
 
-/* Heartbeat Animation */
+
 @keyframes heartbeat {
   0% {
     transform: scale(1);
@@ -750,7 +748,7 @@ footer {
   animation: heartbeat 1.5s infinite;
 }
 
-/* Floating Animation */
+
 @keyframes floating {
   0% {
     transform: translateY(0px);
@@ -767,7 +765,7 @@ footer {
   animation: floating 3s ease-in-out infinite;
 }
 
-/* Fade In Animation for Sections */
+
 section {
   opacity: 0;
   transition: opacity 1s ease;
@@ -783,7 +781,7 @@ button .loading {
   animation: spin 1s linear infinite;
 }
 
-/* Animação para o loader */
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -858,13 +856,13 @@ button .loading {
 }
 
 
-/* Ajustar cor do texto principal para a mesma do nome Julia & Pedro */
+
 .hero-content h2,
 .hero-content p {
-  color: var(--white); /* cor herdada do título */
+  color: var(--white); 
 }
 
-/* Tornar vídeo mais visível reduzindo opacidade da overlay */
+
 .hero-overlay {
-  background: rgba(245, 240, 235, 0.3); /* antes era 0.6 */
+  background: rgba(245, 240, 235, 0.3); 
 }

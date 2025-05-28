@@ -1,32 +1,4 @@
-const weddingDate = new Date("July 20, 2025 19:00:00").getTime();
-const countdownInterval = setInterval(() => {
-  const now = new Date().getTime();
-  const distance = weddingDate - now;
-  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-  const daysEl = document.getElementById("days");
-  const hoursEl = document.getElementById("hours");
-  const minutesEl = document.getElementById("minutes");
-  const secondsEl = document.getElementById("seconds");
-
-  if (daysEl) daysEl.textContent = days.toString().padStart(2, "0");
-  if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, "0");
-  if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, "0");
-  if (secondsEl) secondsEl.textContent = seconds.toString().padStart(2, "0");
-
-  if (distance < 0) {
-    clearInterval(countdownInterval);
-    const countdownTimerElement = document.getElementById("countdown-timer");
-    if (countdownTimerElement) {
-      countdownTimerElement.innerHTML = "<h3>Nosso grande dia chegou!</h3>";
-    }
-  }
-}, 1000);
-
-// Main JavaScript
 document.addEventListener("DOMContentLoaded", () => {
   const header = document.querySelector("header");
   if (header) {
@@ -103,14 +75,13 @@ document.addEventListener("DOMContentLoaded", () => {
     document.head.appendChild(script2);
   }
 
-  // FUNÇÃO generatePDF COM VISUAL LIMPO E COLUNAS LADO A LADO
   async function generatePDF(formDataObj) {
     try {
       const jsPDFNamespace = await loadJsPDF();
       const { jsPDF } = jsPDFNamespace;
       const doc = new jsPDF();
 
-      // Cores
+      
       const backgroundBeige = [245, 240, 235];
       const rosePastel = [250, 225, 228];
       const roseDark = [194, 130, 133];
@@ -121,16 +92,15 @@ document.addEventListener("DOMContentLoaded", () => {
       const pageHeight = doc.internal.pageSize.getHeight();
 
       const rem = 16;
-      const margin = rem * 2; // 2rem = 32pt
+      const margin = rem * 2; 
       const centerX = pageWidth / 2;
 
-      // Fundo
+ 
       doc.setFillColor(...backgroundBeige);
       doc.rect(0, 0, pageWidth, pageHeight, "F");
 
       let currentY = 20;
 
-      // Cabeçalho (agora justificado à esquerda)
       doc.setFontSize(7);
       doc.setTextColor(...textLight);
       doc.setFont("helvetica", "normal");
@@ -143,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       currentY += 30;
 
-      // Nomes dos noivos lado a lado com espaçamento menor
+      
       doc.setFontSize(24);
       doc.setFont("times", "normal");
       doc.setTextColor(...textColor);
@@ -159,16 +129,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
       currentY += 15;
 
-      // Linha decorativa
+     
       doc.setDrawColor(...rosePastel);
       doc.setLineWidth(0.8);
       doc.line(centerX - 30, currentY, centerX + 30, currentY);
 
       currentY += 20;
 
-      // POSICIONAMENTO DAS COLUNAS COM BASE NA MARGEM DE 2rem
+    
       const leftX = margin;
-      const rightX = pageWidth - margin - ((pageWidth - 2 * margin) / 2); // colunas mais próximas ao centro
+      const rightX = pageWidth - margin - ((pageWidth - 2 * margin) / 2); 
       let infoY = currentY;
 
       doc.setFontSize(10);
@@ -208,7 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       infoY += 15;
 
-      // Mensagem (se houver)
+      
       if (formDataObj.mensagem && formDataObj.mensagem.trim() !== "") {
         doc.setFont("helvetica", "bold");
         doc.setTextColor(...roseDark);
@@ -222,7 +192,6 @@ document.addEventListener("DOMContentLoaded", () => {
         doc.text(msgLines, leftX + 10, infoY);
       }
 
-      // Rodapé
       const footerY = pageHeight - 20;
       doc.setDrawColor(...rosePastel);
       doc.setLineWidth(0.8);
